@@ -1,15 +1,15 @@
 package de.carstenkremser.workhourcapture.backend.service;
 
 import de.carstenkremser.workhourcapture.backend.model.TimeRecord;
+import de.carstenkremser.workhourcapture.backend.repository.TimeRecordRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-
-import java.time.Instant;
 
 @Service
 @RequiredArgsConstructor
 public class TimeRecordService {
 
+    private final TimeRecordRepository timeRecordRepository;
     private final IdGenerator idGenerator;
     private final TimeGenerator timeGenerator;
 
@@ -19,6 +19,6 @@ public class TimeRecordService {
                 timeGenerator.createInstantNow(),
                 userId
         );
-        return timeRecord;
+        return timeRecordRepository.insert(timeRecord);
     }
 }
