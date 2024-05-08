@@ -32,11 +32,11 @@ class TimeRecordIntegrationTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("$.id").exists())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.time").exists())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.userId").value(userId));
-        assertEquals(timeRecordRepository.findAll().size(), 1);
-        assertEquals(timeRecordRepository.findAll().stream()
-                        .filter((timeRecord) -> timeRecord.userId().equals(userId))
-                        .count(),
-                Long.valueOf(1));
+        assertEquals(1, timeRecordRepository.findAll().size());
+        assertEquals(Long.valueOf(1), timeRecordRepository.findAll()
+                .stream()
+                .filter((timeRecord) -> timeRecord.userId().equals(userId))
+                .count());
 
     }
 }
