@@ -13,9 +13,9 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 class BackendApplicationTests {
 
     @Autowired
-    IdGenerator idGenerator = new IdGenerator();
+    IdGenerator idGenerator;
     @Autowired
-    TimeGenerator timeGenerator = new TimeGenerator();
+    TimeGenerator timeGenerator;
 
     @Autowired
     TimeRecordController timeRecordController;
