@@ -8,6 +8,7 @@ import java.time.Instant;
 @Document("TimeRecords")
 public record TimeRecord(
         @Id String id,
+        String recordType,
         Instant time,
         String userId,
         String timeZone,

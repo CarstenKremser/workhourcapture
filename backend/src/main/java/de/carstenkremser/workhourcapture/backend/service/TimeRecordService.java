@@ -22,6 +22,7 @@ public class TimeRecordService {
                 : timeBookingDto.recordTime();
         TimeRecord timeRecord = new TimeRecord(
                 idGenerator.createId(),
+                timeBookingDto.recordType(),
                 recordTime,
                 timeBookingDto.userId(),
                 timeBookingDto.timezoneName(),

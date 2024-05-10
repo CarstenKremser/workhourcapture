@@ -28,7 +28,7 @@ class TimeRecordServiceTest {
         final int anOffset = -120;
 
         final TimeBookingDto bookingDto = new TimeBookingDto(anUserId, aRecordType, aTime, anOffset, aTimeZone);
-        final TimeRecord timeRecord = new TimeRecord(anId, aTime, anUserId, aTimeZone, (anOffset * -1));
+        final TimeRecord timeRecord = new TimeRecord(anId, aRecordType, aTime, anUserId, aTimeZone, (anOffset * -1));
         when(mockIdGenerator.createId()).thenReturn(anId);
         when(mockTimeGenerator.createInstantNow()).thenReturn(aTime);
         when(mockTimeRecordRepository.insert(timeRecord)).thenReturn(timeRecord);
@@ -40,6 +40,7 @@ class TimeRecordServiceTest {
 
         assertNotNull(actual);
         assertEquals(anId, actual.id());
+        assertEquals(aRecordType, actual.recordType());
         assertEquals(aTime, actual.time());
         assertEquals(anUserId, actual.userId());
         assertEquals(aTimeZone, actual.timeZone());
@@ -56,7 +57,7 @@ class TimeRecordServiceTest {
         final int anOffset = -120;
 
         final TimeBookingDto bookingDto = new TimeBookingDto(anUserId, aRecordType, null, anOffset, aTimeZone);
-        final TimeRecord timeRecord = new TimeRecord(anId, aTime, anUserId, aTimeZone, (anOffset * -1));
+        final TimeRecord timeRecord = new TimeRecord(anId, aRecordType, aTime, anUserId, aTimeZone, (anOffset * -1));
         when(mockIdGenerator.createId()).thenReturn(anId);
         when(mockTimeGenerator.createInstantNow()).thenReturn(aTime);
         when(mockTimeRecordRepository.insert(timeRecord)).thenReturn(timeRecord);
@@ -68,6 +69,7 @@ class TimeRecordServiceTest {
 
         assertNotNull(actual);
         assertEquals(anId, actual.id());
+        assertEquals(aRecordType, actual.recordType());
         assertEquals(aTime, actual.time());
         assertEquals(anUserId, actual.userId());
         assertEquals(aTimeZone, actual.timeZone());
