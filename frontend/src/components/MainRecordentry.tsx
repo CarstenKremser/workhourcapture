@@ -1,12 +1,13 @@
 import '../style.css'
 import {useEffect, useState} from "react";
+import axios from "axios";
 
 function DateTimeNow() {
     const nowWithOutTimezone = new Date();
     const now = new Date(Date.now() - nowWithOutTimezone.getTimezoneOffset() * 60000);
     now.toISOString();
     console.log("now is " + now.toISOString());
-    return now.toISOString().substr(0, 16);
+    return now.toISOString().substring(0, 16);
 }
 
 function RecordTypeToString(recordType: string) {
@@ -46,6 +47,14 @@ export function MainRecordentry() {
         event.preventDefault();
         if (entryMethod === "instant") {
             alert("Submitting instant booking");
+            axios.post("/api/timerecord/addnow/defaultUser",{
+                "userid": "defaultUser",
+                "recordType": recordType,
+            }).then((response) => {
+                console.log(response);
+            }).catch((error)=> {
+                console.log(error);
+            })
         } else if (entryMethod === "edited") {
             alert("Submitting manual booking," + "\n" +
                 "RecordTime is " + recordTime + "\n" +
