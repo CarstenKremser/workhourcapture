@@ -1,20 +1,59 @@
 import '../style.css'
-import {useState} from "react";
+import {useEffect, useState} from "react";
 
+function DateTimeNow() {
+    const nowWithOutTimezone = new Date();
+    const now = new Date(Date.now() - nowWithOutTimezone.getTimezoneOffset() * 60000);
+    now.toISOString();
+    console.log("now is " + now.toISOString());
+    return now.toISOString().substr(0, 16);
+}
+
+function RecordTypeToString(recordType: string) {
+    switch (recordType) {
+        case "workstart": return "Arbeitsbeginn";
+        case "workend": return "Arbeitsende";
+        case "breakstart": return "Pausenbeginn";
+        case "breakend": return "Pausenende";
+        default: return "";
+    }
+}
 
 export function MainRecordentry() {
 
-    const [entrytype, setEntrytype] = useState("instant");
+    const [sugestedRecordType, setSugestedRecordType] = useState("workstart");
+    const [entryMethod, setEntryMethod] = useState("instant");
+    const [recordTime, setRecordTime] = useState(DateTimeNow());
+    const [recordType, setRecordType] = useState("workstart")
 
-    const onChangeEntrytype = (event) => {
-        setEntrytype(event.target.value);
+    useEffect(() => {
+        setSugestedRecordType("workstart");
+    }, []);
+
+    const onChangeEntryMethod = (event) => {
+        setEntryMethod(event.target.value);
+    }
+
+    const onChangeRecordTime = (event) => {
+        setRecordTime(event.target.value);
+    }
+
+    const onChangeRecordType = (event) => {
+        setRecordType(event.target.value);
     }
 
     const handleSubmit = (event) => {
         event.preventDefault();
-
-        alert('This Entrytype was submitted: ' + entrytype);
-
+        if (entryMethod === "instant") {
+            alert("Submitting instant booking");
+        } else if (entryMethod === "edited") {
+            alert("Submitting manual booking," + "\n" +
+                "RecordTime is " + recordTime + "\n" +
+                "RecordType is " + recordType + "\n" +
+                "Now is " + DateTimeNow());
+        } else {
+            alert("Error: Unknown Entrytype " + entryMethod);
+        }
     };
 
     return (<>
@@ -30,10 +69,10 @@ export function MainRecordentry() {
                                id="recordtime-instant"
                                name="recordtime-instant"
                                value="instant"
-                               checked={entrytype === "instant"}
-                               onChange={onChangeEntrytype}
+                               checked={entryMethod === "instant"}
+                               onChange={onChangeEntryMethod}
                         / >
-                        <label htmlFor="recordtime-instant" id="recordtime-instant-label">jetzt</label>
+                        <label htmlFor="recordtime-instant" id="recordtime-instant-label">{RecordTypeToString(sugestedRecordType)} jetzt</label>
                     </div>
 
                     <div className="recordtime-radiocontainer">
@@ -42,22 +81,23 @@ export function MainRecordentry() {
                                id="recordtime-edited"
                                name="recordtime-edited"
                                value="edited"
-                               checked={entrytype === "edited"}
-                               onChange={onChangeEntrytype}
+                               checked={entryMethod === "edited"}
+                               onChange={onChangeEntryMethod}
                         / >
                         <label htmlFor="recordtime-edited">manuell:</label>
-                        <select name="recordtime-bookingtype" id="recordtime-select">
+                        <select name="recordtime-bookingtype" id="recordtime-select"
+                        onChange={onChangeRecordType}>
                             <option value="workstart">Arbeitsbeginn</option>
                             <option value="workend">Arbeitsende</option>
-                            <option value="breakstart">Pausenbeginn</option>
-                            <option value="breakend">Pausenende</option>
                         </select>
                         <div className="recordtime-edittime">
                             <label htmlFor="recordtime-date">Datum/Uhrzeit:</label>
                             <input type="datetime-local" id="recordtime-date" name="recordtime-date"
-                                   value="2024-05-07T12:00"
+                                   value={recordTime}
                                    min="2024-05-01T00:00"
-                                   max="2024-06-01T00:00"/>
+                                   max="2024-06-01T00:00"
+                                   onChange={onChangeRecordTime}
+                            />
                         </div>
                     </div>
 
