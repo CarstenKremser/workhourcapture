@@ -47,7 +47,7 @@ export function MainRecordentry() {
         event.preventDefault();
         if (entryMethod === "instant") {
             axios.post("/api/timerecord/addnow/defaultUser",{
-                "userid": "defaultUser",
+                "userId": "defaultUser",
                 "recordType": recordType,
             }).then((response) => {
                 console.log(response);
@@ -80,8 +80,7 @@ export function MainRecordentry() {
                                name="recordtime-instant"
                                value="instant"
                                checked={entryMethod === "instant"}
-                               onChange={onChangeEntryMethod}
-                        / >
+                               onChange={onChangeEntryMethod} />
                         <label htmlFor="recordtime-instant" id="recordtime-instant-label">{RecordTypeToString(sugestedRecordType)} jetzt</label>
                     </div>
 
@@ -92,8 +91,7 @@ export function MainRecordentry() {
                                name="recordtime-edited"
                                value="edited"
                                checked={entryMethod === "edited"}
-                               onChange={onChangeEntryMethod}
-                        / >
+                               onChange={onChangeEntryMethod} />
                         <label htmlFor="recordtime-edited">manuell:</label>
                         <select name="recordtime-bookingtype" id="recordtime-select"
                         onChange={onChangeRecordType}>
@@ -106,8 +104,7 @@ export function MainRecordentry() {
                                    value={recordTime}
                                    min="2024-05-01T00:00"
                                    max="2024-06-01T00:00"
-                                   onChange={onChangeRecordTime}
-                            />
+                                   onChange={onChangeRecordTime} />
                         </div>
                     </div>
 
