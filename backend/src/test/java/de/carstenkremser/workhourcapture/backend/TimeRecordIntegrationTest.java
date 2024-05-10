@@ -41,10 +41,10 @@ class TimeRecordIntegrationTest {
         final String userId = "ThisIsMyId";
         final String recordType = "workstart";
         final String timeZone = "Europe/Berlin";
-        final Integer timeZoneOffsetInMinutes = -120;
+        final int timeZoneOffsetInMinutes = -120;
         final TimeBookingDto bookingDto = new TimeBookingDto(userId, recordType, null, timeZoneOffsetInMinutes, timeZone);
 
-        mockMvc.perform(MockMvcRequestBuilders.post("/api/timerecord/add/" + userId)
+        mockMvc.perform(MockMvcRequestBuilders.post("/api/timerecord/add")
                         .content(asJsonString(bookingDto))
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
@@ -74,14 +74,14 @@ class TimeRecordIntegrationTest {
         final String recordType = "workstart";
         final Instant now = Instant.now();
         final String timeZone = "Europe/Berlin";
-        final Integer timeZoneOffsetInMinutes = -120;
+        final int timeZoneOffsetInMinutes = -120;
         final TimeBookingDto bookingDto = new TimeBookingDto(userId, recordType, now, timeZoneOffsetInMinutes, timeZone);
         System.out.println(bookingDto.recordTime().toString());
-        mockMvc.perform(MockMvcRequestBuilders.post("/api/timerecord/add/" + userId)
+        mockMvc.perform(MockMvcRequestBuilders.post("/api/timerecord/add")
                         .content("{"+
                                         "\"userId\": \"" + bookingDto.userId() + "\"," +
                                         "\"recordType\": \"" + bookingDto.recordType() + "\"," +
-                                        "\"recordTime\": \"" + bookingDto.recordTime().toString() + "\"," +
+                                        "\"recordTime\": \"" + bookingDto.recordTime() + "\"," +
                                         "\"timezoneOffset\": \"" + bookingDto.timezoneOffset() + "\"," +
                                         "\"timezoneName\": \"" + bookingDto.timezoneName() + "\"" +
                                 "}")

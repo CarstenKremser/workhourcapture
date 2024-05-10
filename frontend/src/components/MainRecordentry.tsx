@@ -60,7 +60,7 @@ export function MainRecordentry() {
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         if (entryMethod === "instant") {
-            axios.post("/api/timerecord/add/defaultUser",{
+            axios.post("/api/timerecord/add",{
                 "userId": "defaultUser",
                 "recordType": sugestedRecordType,
                 "timezoneOffset": TimezoneOffset(),
@@ -73,7 +73,7 @@ export function MainRecordentry() {
                 alert("Buchungsfehler: " + error.message);
             })
         } else if (entryMethod === "edited") {
-            axios.post("/api/timerecord/add/defaultUser",{
+            axios.post("/api/timerecord/add",{
                 "userId": "defaultUser",
                 "recordType": recordType,
                 "recordTimestamp": TimeWithoutTimezoneOffset(recordTime),

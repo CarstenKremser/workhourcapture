@@ -13,9 +13,8 @@ public class TimeRecordController {
 
     private final TimeRecordService timeRecordService;
 
-    @PostMapping("/add/{userId}")
-    public TimeRecord add(@PathVariable String userId, @RequestBody TimeBookingDto bookingBody) {
-        System.out.println("addnow: " + bookingBody.userId() + ", " + bookingBody.recordType());
+    @PostMapping("/add")
+    public TimeRecord add(@RequestBody TimeBookingDto bookingBody) {
         return timeRecordService.addTimeRecord(bookingBody);
     }
 }
