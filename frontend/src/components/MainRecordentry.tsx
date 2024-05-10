@@ -10,6 +10,20 @@ function DateTimeNow() {
     return now.toISOString().substring(0, 16);
 }
 
+function TimeWithoutTimezoneOffset(timeStringWithOffset: string) {
+    const time = new Date(timeStringWithOffset);
+    return time.toISOString().substring(0, 16);
+}
+
+function TimezoneOffset() {
+    const now = new Date();
+    return now.getTimezoneOffset();
+}
+
+function TimezoneName() {
+    return Intl.DateTimeFormat().resolvedOptions().timeZone;
+}
+
 function RecordTypeToString(recordType: string) {
     switch (recordType) {
         case "workstart": return "Arbeitsbeginn";
@@ -24,7 +38,7 @@ export function MainRecordentry() {
 
     const [sugestedRecordType, setSugestedRecordType] = useState("workstart");
     const [entryMethod, setEntryMethod] = useState("instant");
-    const [recordTime, setRecordTime] = useState(DateTimeNow());
+    const [recordTime, setRecordTime] = useState<string>(DateTimeNow());
     const [recordType, setRecordType] = useState("workstart")
 
     useEffect(() => {
@@ -46,9 +60,11 @@ export function MainRecordentry() {
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         if (entryMethod === "instant") {
-            axios.post("/api/timerecord/addnow/defaultUser",{
+            axios.post("/api/timerecord/add/defaultUser",{
                 "userId": "defaultUser",
-                "recordType": recordType,
+                "recordType": sugestedRecordType,
+                "timezoneOffset": TimezoneOffset(),
+                "timezoneName": TimezoneName(),
             }).then((response) => {
                 console.log(response);
                 alert("Buchung erfolgreich");
@@ -57,10 +73,19 @@ export function MainRecordentry() {
                 alert("Buchungsfehler: " + error.message);
             })
         } else if (entryMethod === "edited") {
-            alert("Submitting manual booking," + "\n" +
-                "RecordTime is " + recordTime + "\n" +
-                "RecordType is " + recordType + "\n" +
-                "Now is " + DateTimeNow());
+            axios.post("/api/timerecord/add/defaultUser",{
+                "userId": "defaultUser",
+                "recordType": recordType,
+                "recordTimestamp": TimeWithoutTimezoneOffset(recordTime),
+                "timezoneOffset": TimezoneOffset(),
+                "timezoneName": TimezoneName(),
+            }).then((response) => {
+                console.log(response);
+                alert("Buchung erfolgreich");
+            }).catch((error)=> {
+                console.log(error);
+                alert("Buchungsfehler: " + error.message);
+            })
         } else {
             alert("Error: Unknown Entrytype " + entryMethod);
         }

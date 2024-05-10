@@ -1,6 +1,6 @@
 package de.carstenkremser.workhourcapture.backend.controller;
 
-import de.carstenkremser.workhourcapture.backend.dto.BookingNowDto;
+import de.carstenkremser.workhourcapture.backend.dto.TimeBookingDto;
 import de.carstenkremser.workhourcapture.backend.model.TimeRecord;
 import de.carstenkremser.workhourcapture.backend.service.TimeRecordService;
 import lombok.RequiredArgsConstructor;
@@ -13,9 +13,9 @@ public class TimeRecordController {
 
     private final TimeRecordService timeRecordService;
 
-    @PostMapping("/addnow/{userId}")
-    public TimeRecord addNow(@PathVariable String userId, @RequestBody BookingNowDto bookingBody) {
+    @PostMapping("/add/{userId}")
+    public TimeRecord add(@PathVariable String userId, @RequestBody TimeBookingDto bookingBody) {
         System.out.println("addnow: " + bookingBody.userId() + ", " + bookingBody.recordType());
-        return timeRecordService.addTimeRecordForNow(userId);
+        return timeRecordService.addTimeRecord(bookingBody);
     }
 }

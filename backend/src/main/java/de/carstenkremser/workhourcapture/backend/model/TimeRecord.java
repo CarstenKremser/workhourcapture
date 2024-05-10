@@ -9,6 +9,8 @@ import java.time.Instant;
 public record TimeRecord(
         @Id String id,
         Instant time,
-        String userId
+        String userId,
+        String timeZone,
+        Integer timeZoneOffset
         ) {
 }
