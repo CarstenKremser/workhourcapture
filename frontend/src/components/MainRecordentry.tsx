@@ -46,14 +46,15 @@ export function MainRecordentry() {
     const handleSubmit = (event) => {
         event.preventDefault();
         if (entryMethod === "instant") {
-            alert("Submitting instant booking");
             axios.post("/api/timerecord/addnow/defaultUser",{
                 "userid": "defaultUser",
                 "recordType": recordType,
             }).then((response) => {
                 console.log(response);
+                alert("Buchung erfolgreich");
             }).catch((error)=> {
                 console.log(error);
+                alert("Buchungsfehler: " + error.message);
             })
         } else if (entryMethod === "edited") {
             alert("Submitting manual booking," + "\n" +
