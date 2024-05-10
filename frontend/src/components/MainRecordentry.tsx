@@ -1,5 +1,5 @@
 import '../style.css'
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import axios from "axios";
 
 function DateTimeNow() {
@@ -31,19 +31,19 @@ export function MainRecordentry() {
         setSugestedRecordType("workstart");
     }, []);
 
-    const onChangeEntryMethod = (event) => {
+    const onChangeEntryMethod = (event: React.ChangeEvent<HTMLInputElement>) => {
         setEntryMethod(event.target.value);
     }
 
-    const onChangeRecordTime = (event) => {
+    const onChangeRecordTime = (event: React.ChangeEvent<HTMLInputElement>) => {
         setRecordTime(event.target.value);
     }
 
-    const onChangeRecordType = (event) => {
+    const onChangeRecordType = (event: React.ChangeEvent<HTMLSelectElement>) => {
         setRecordType(event.target.value);
     }
 
-    const handleSubmit = (event) => {
+    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         if (entryMethod === "instant") {
             axios.post("/api/timerecord/addnow/defaultUser",{
