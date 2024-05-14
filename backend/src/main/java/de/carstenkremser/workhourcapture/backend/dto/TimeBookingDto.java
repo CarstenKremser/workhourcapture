@@ -6,7 +6,7 @@ import java.time.Instant;
 public record TimeBookingDto(
         String userId,
         String recordType ,
-        Instant recordTime,
+        Instant recordTimestamp,
         Integer timezoneOffset,
         String timezoneName
 ) {

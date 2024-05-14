@@ -14,6 +14,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import java.time.Instant;
+import java.time.LocalDateTime;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -50,7 +51,7 @@ class TimeRecordIntegrationTest {
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.id").exists())
-                .andExpect(MockMvcResultMatchers.jsonPath("$.time").exists())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.dateTime").exists())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.userId").value(userId))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.timeZone").value(timeZone))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.timeZoneOffset").value(timeZoneOffsetInMinutes * -1))
@@ -62,7 +63,7 @@ class TimeRecordIntegrationTest {
                 .count());
         assertEquals(Long.valueOf(1), timeRecordRepository.findAll()
                 .stream()
-                .filter((timeRecord) -> (timeRecord.time() != null))
+                .filter((timeRecord) -> (timeRecord.dateTime() != null))
                 .count());
 
     }
@@ -73,15 +74,16 @@ class TimeRecordIntegrationTest {
         final String userId = "ThisIsMyId";
         final String recordType = "workstart";
         final Instant now = Instant.now();
+        //final LocalDateTime now = LocalDateTime.now();
         final String timeZone = "Europe/Berlin";
         final int timeZoneOffsetInMinutes = -120;
         final TimeBookingDto bookingDto = new TimeBookingDto(userId, recordType, now, timeZoneOffsetInMinutes, timeZone);
-        System.out.println(bookingDto.recordTime().toString());
+        System.out.println(bookingDto.recordTimestamp().toString());
         mockMvc.perform(MockMvcRequestBuilders.post("/api/timerecord/add")
                         .content("{"+
                                         "\"userId\": \"" + bookingDto.userId() + "\"," +
                                         "\"recordType\": \"" + bookingDto.recordType() + "\"," +
-                                        "\"recordTime\": \"" + bookingDto.recordTime() + "\"," +
+                                        "\"recordTimestamp\": \"" + bookingDto.recordTimestamp() + "\"," +
                                         "\"timezoneOffset\": \"" + bookingDto.timezoneOffset() + "\"," +
                                         "\"timezoneName\": \"" + bookingDto.timezoneName() + "\"" +
                                 "}")
@@ -89,7 +91,7 @@ class TimeRecordIntegrationTest {
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.id").exists())
-                .andExpect(MockMvcResultMatchers.jsonPath("$.time").value(now.toString()))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.dateTime").value(now.toString().substring(0, 26)))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.userId").value(userId))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.timeZone").value(timeZone))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.timeZoneOffset").value(timeZoneOffsetInMinutes * -1))
@@ -101,7 +103,7 @@ class TimeRecordIntegrationTest {
                 .count());
         assertEquals(Long.valueOf(1), timeRecordRepository.findAll()
                 .stream()
-                .filter((timeRecord) -> (timeRecord.time() != null))
+                .filter((timeRecord) -> (timeRecord.dateTime() != null))
                 .count());
     }
 

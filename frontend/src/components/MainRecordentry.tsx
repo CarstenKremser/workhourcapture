@@ -12,7 +12,7 @@ function DateTimeNow() {
 
 function TimeWithoutTimezoneOffset(timeStringWithOffset: string) {
     const time = new Date(timeStringWithOffset);
-    return time.toISOString().substring(0, 16);
+    return time.toISOString();
 }
 
 function TimezoneOffset() {
@@ -59,6 +59,7 @@ export function MainRecordentry() {
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
+        console.log("Entry Method " + entryMethod);
         if (entryMethod === "instant") {
             axios.post("/api/timerecord/add",{
                 "userId": "defaultUser",

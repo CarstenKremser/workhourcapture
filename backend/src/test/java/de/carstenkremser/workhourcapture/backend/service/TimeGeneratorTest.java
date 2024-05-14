@@ -3,19 +3,20 @@ package de.carstenkremser.workhourcapture.backend.service;
 import org.junit.jupiter.api.Test;
 
 import java.time.Instant;
+import java.time.LocalDateTime;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class TimeGeneratorTest {
 
     @Test
-    void createInstantNow() {
+    void createLocalDateTimeNow() {
         TimeGenerator timeGenerator = new TimeGenerator();
-        Instant createdInstantNow1 = timeGenerator.createInstantNow();
-        Instant createdInstantNow2 = timeGenerator.createInstantNow();
+        LocalDateTime createdLocalDateTimeNow1 = timeGenerator.createLocalDateTimeNow();
+        LocalDateTime createdLocalDateTimeNow2 = timeGenerator.createLocalDateTimeNow();
 
-        assertNotNull(createdInstantNow1);
-        assertNotNull(createdInstantNow2);
-        assertNotEquals(createdInstantNow1, createdInstantNow2);
+        assertNotNull(createdLocalDateTimeNow1);
+        assertNotNull(createdLocalDateTimeNow2);
+        assertNotEquals(createdLocalDateTimeNow1, createdLocalDateTimeNow2);
     }
 }
