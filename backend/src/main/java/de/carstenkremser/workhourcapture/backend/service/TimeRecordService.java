@@ -2,6 +2,7 @@ package de.carstenkremser.workhourcapture.backend.service;
 
 import de.carstenkremser.workhourcapture.backend.dto.TimeBookingDto;
 import de.carstenkremser.workhourcapture.backend.model.TimeRecord;
+import de.carstenkremser.workhourcapture.backend.model.TimeRecordType;
 import de.carstenkremser.workhourcapture.backend.repository.TimeRecordRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -20,7 +21,7 @@ public class TimeRecordService {
 
     private LocalDateTime InstantToLocalDateTimeWithDefaultNow(Instant timestamp) {
         if (timestamp == null) {
-           return timeGenerator.createLocalDateTimeNow();
+            return timeGenerator.createLocalDateTimeNow();
         }
         return LocalDateTime.ofInstant(timestamp, ZoneId.systemDefault());
     }
@@ -28,7 +29,7 @@ public class TimeRecordService {
     public TimeRecord addTimeRecord(TimeBookingDto timeBookingDto) {
         TimeRecord timeRecord = new TimeRecord(
                 idGenerator.createId(),
-                timeBookingDto.recordType(),
+                TimeRecordType.valueOf(timeBookingDto.recordType()),
                 InstantToLocalDateTimeWithDefaultNow(timeBookingDto.recordTimestamp()),
                 timeBookingDto.userId(),
                 timeBookingDto.timezoneName(),
