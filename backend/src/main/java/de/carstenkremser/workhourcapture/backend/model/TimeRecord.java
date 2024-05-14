@@ -13,5 +13,9 @@ public record TimeRecord(
         String userId,
         String timeZone,
         Integer timeZoneOffset
-        ) {
+) {
+
+    int getMonth() {
+        return dateTime.getMonth().getValue();
+    }
 }
