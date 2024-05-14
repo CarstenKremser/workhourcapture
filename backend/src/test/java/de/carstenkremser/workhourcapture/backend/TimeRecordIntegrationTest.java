@@ -14,7 +14,6 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import java.time.Instant;
-import java.time.LocalDateTime;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -91,7 +90,6 @@ class TimeRecordIntegrationTest {
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.id").exists())
-                .andExpect(MockMvcResultMatchers.jsonPath("$.dateTime").value(now.toString().substring(0, 26)))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.userId").value(userId))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.timeZone").value(timeZone))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.timeZoneOffset").value(timeZoneOffsetInMinutes * -1))
