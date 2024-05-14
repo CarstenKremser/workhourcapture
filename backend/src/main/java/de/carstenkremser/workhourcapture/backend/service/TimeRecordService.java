@@ -6,7 +6,8 @@ import de.carstenkremser.workhourcapture.backend.repository.TimeRecordRepository
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 
 @Service
 @RequiredArgsConstructor
@@ -17,13 +18,14 @@ public class TimeRecordService {
     private final TimeGenerator timeGenerator;
 
     public TimeRecord addTimeRecord(TimeBookingDto timeBookingDto) {
-        Instant recordTime = (timeBookingDto.recordTime() == null)
-                ? timeGenerator.createInstantNow()
-                : timeBookingDto.recordTime();
+        LocalDateTime recordDateTime = (timeBookingDto.recordTimestamp() == null)
+                ? timeGenerator.createLocalDateTimeNow()
+                : LocalDateTime.ofInstant(timeBookingDto.recordTimestamp(), ZoneId.systemDefault());
         TimeRecord timeRecord = new TimeRecord(
                 idGenerator.createId(),
                 timeBookingDto.recordType(),
-                recordTime,
+                //recordTimestamp,
+                recordDateTime,
                 timeBookingDto.userId(),
                 timeBookingDto.timezoneName(),
                 timeBookingDto.timezoneOffset() * -1
