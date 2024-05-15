@@ -1,6 +1,5 @@
 package de.carstenkremser.workhourcapture.backend.dto;
 
-
 import java.time.Instant;
 
 public record TimeBookingDto(
