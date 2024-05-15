@@ -96,7 +96,7 @@ class TimeRecordServiceTest {
                         LocalDateTime.of(2023, 12, 4, 13, 21, 14),
                         "defaultUser", "Europe/Berlin", 120),
                 new TimeRecord("ID3", TimeRecordType.WORKEND,
-                        LocalDateTime.of(2023, 12, 5, 17, 02, 18),
+                        LocalDateTime.of(2023, 12, 5, 17, 2, 18),
                         "defaultUser", "Europe/Berlin", 120),
                 new TimeRecord("ID4", TimeRecordType.WORKSTART,
                         LocalDateTime.of(2023, 12, 6, 9, 1, 7),
@@ -148,7 +148,7 @@ class TimeRecordServiceTest {
                         LocalDateTime.of(2023, 12, 4, 13, 21, 14),
                         "defaultUser", "Europe/Berlin", 120),
                 new TimeRecord("ID3", TimeRecordType.WORKEND,
-                        LocalDateTime.of(2023, 12, 5, 17, 02, 18),
+                        LocalDateTime.of(2023, 12, 5, 17, 2, 18),
                         "defaultUser", "Europe/Berlin", 120),
                 new TimeRecord("ID4", TimeRecordType.WORKSTART,
                         LocalDateTime.of(2023, 12, 6, 9, 1, 7),
@@ -204,7 +204,7 @@ class TimeRecordServiceTest {
                         LocalDateTime.of(2023, 12, 5, 9, 1, 7),
                         "defaultUser", "Europe/Berlin", 120),
                 new TimeRecord("ID4", TimeRecordType.WORKEND,
-                        LocalDateTime.of(2023, 12, 5, 17, 02, 18),
+                        LocalDateTime.of(2023, 12, 5, 17, 2, 18),
                         "defaultUser", "Europe/Berlin", 120),
 
                 // Working time crossing month boundary:
@@ -266,7 +266,7 @@ class TimeRecordServiceTest {
                         LocalDateTime.of(2023, 12, 5, 9, 1, 7),
                         "defaultUser", "Europe/Berlin", 120),
                 new TimeRecord("ID4", TimeRecordType.WORKEND,
-                        LocalDateTime.of(2023, 12, 5, 17, 02, 18),
+                        LocalDateTime.of(2023, 12, 5, 17, 2, 18),
                         "defaultUser", "Europe/Berlin", 120),
 
                 // Working time crossing month boundary:
@@ -379,7 +379,7 @@ class TimeRecordServiceTest {
                         "defaultUser", "Europe/Berlin", 120),
                 // WORKSTART "missing"
                 new TimeRecord("ID3", TimeRecordType.WORKEND,
-                        LocalDateTime.of(2023, 12, 5, 17, 02, 18),
+                        LocalDateTime.of(2023, 12, 5, 17, 2, 18),
                         "defaultUser", "Europe/Berlin", 120),
                 new TimeRecord("ID4", TimeRecordType.WORKSTART,
                         LocalDateTime.of(2023, 12, 6, 9, 1, 7),
