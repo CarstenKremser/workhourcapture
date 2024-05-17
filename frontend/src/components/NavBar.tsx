@@ -1,18 +1,26 @@
-import {NavLink} from "react-router-dom";
+import {Link, NavLink} from "react-router-dom";
+import timeIconWhite from '../assets/TimeIcon_white.svg'
 import '../style.css'
 
 export function NavBar() {
     return (<>
         <nav className="navbar">
+            <Link to="/">
             <div className="navbar-title">
-                Hallo USERNAME
+                <div className="navbar-icon">
+                    <img className="title-icon" src={timeIconWhite} alt="TimeIcon"/>
+                </div>
+                <div className="navbar-greeting">
+                    Hallo USERNAME
+                </div>
             </div>
+            </Link>
             <ul className="navbar-items">
-                <li className="navbar-item">
+            <li className="navbar-item">
                     <NavLink to={"/analyse"}>Auswertung</NavLink>
                 </li>
                 <li className="navbar-item">
-                    login
+                    <NavLink to={"/login"}>login</NavLink>
                 </li>
             </ul>
         </nav>

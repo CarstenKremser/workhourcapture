@@ -43,6 +43,26 @@ h1 {
   text-align: left;
 }
 
+.navbar a {
+  text-decoration: none;
+  color: var(--bar-color);
+}
+
+.navbar-title {
+  display: flex;
+  flex-direction: row;
+  align-content: center;
+  align-items: center;
+}
+
+.navbar-icon {
+  padding-right: 1rem;
+}
+
+.title-icon {
+  height: 2.2rem;
+}
+
 .navbar-items {
   display: flex;
   flex-direction: row;
