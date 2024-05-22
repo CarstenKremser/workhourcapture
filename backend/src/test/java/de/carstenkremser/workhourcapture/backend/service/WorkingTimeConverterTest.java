@@ -114,6 +114,7 @@ class WorkingTimeConverterTest {
         assertNotNull(actual);
         assertEquals("",actual.date());
         assertEquals("",actual.allocated());
+        assertEquals("",actual.worked());
         assertEquals(List.of(),actual.workingTimes());
     }
 
@@ -144,6 +145,7 @@ class WorkingTimeConverterTest {
         assertNotNull(actual);
         assertEquals("12.01.2024",actual.date());
         assertEquals("0:00",actual.allocated());
+        assertEquals("3:10",actual.worked());
         assertEquals(1,actual.workingTimes().size());
     }
 

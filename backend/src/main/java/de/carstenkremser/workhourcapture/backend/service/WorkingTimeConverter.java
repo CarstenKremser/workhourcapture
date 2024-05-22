@@ -60,11 +60,12 @@ public class WorkingTimeConverter {
 
     public WorkingDayOutputDto convertWorkingDayToDto(WorkingDay workingDay) {
         if (workingDay == null) {
-            return new WorkingDayOutputDto("", "", List.of());
+            return new WorkingDayOutputDto("", "", "", List.of());
         }
         return new WorkingDayOutputDto(
                 convertLocalDateToString(workingDay.getDate()),
                 convertDurationToString(workingDay.getAllocated()),
+                convertDurationToString(workingDay.getWorkingTime()),
                 workingDay.getWorkingTimes()
                         .stream()
                         .map(this::convertWorkingTimeToDto)
