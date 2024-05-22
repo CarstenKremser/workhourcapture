@@ -15,10 +15,10 @@ public record WorkingTime (
 
     private static Duration calculateDuration(TimeRecord workStart, TimeRecord workEnd) {
         if (workStart == null || workStart.dateTime() == null) {
-            return null;
+            return Duration.ZERO;
         }
         if (workEnd == null || workEnd.dateTime() == null) {
-            return null;
+            return Duration.ZERO;
         }
         return Duration.between(workStart.dateTime(),workEnd.dateTime());
     };

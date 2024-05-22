@@ -95,14 +95,12 @@ public class WorkingTimeService {
 
         currentDate = startDate;
         Duration allocatedSum = Duration.ZERO;
-        Duration workingTimeSum = Duration.ZERO;
         List<WorkingDay> workingDayList = new ArrayList<>();
 
         while(currentDate.isBefore(endDate)) {
             if (workingDays.containsKey(currentDate)) {
                 WorkingDay workingDay = workingDays.get(currentDate);
                 allocatedSum = allocatedSum.plus(workingDay.getAllocated());
-                workingTimeSum = workingTimeSum.plus(workingDay.getWorkingTime());
                 workingDayList.add(workingDay);
             }
             currentDate = currentDate.plusDays(1);
@@ -110,7 +108,6 @@ public class WorkingTimeService {
 
         return new WorkingDays(
                 allocatedSum,
-                workingTimeSum,
                 workingDayList);
     }
 

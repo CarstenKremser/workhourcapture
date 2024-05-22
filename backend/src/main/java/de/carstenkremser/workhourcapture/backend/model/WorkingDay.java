@@ -31,9 +31,7 @@ public class WorkingDay {
     public Duration getWorkingTime() {
         Duration sum = Duration.ZERO;
         for (WorkingTime workingTime : workingTimes) {
-            if (workingTime.duration() != null) {
-                sum = sum.plus(workingTime.duration());
-            }
+            sum = sum.plus(workingTime.duration());
         }
         return sum;
     }
