@@ -1,7 +1,10 @@
 .monthSelect {
-    width: 3rem;
+    width: 3.8rem;
+    font-size: 0.9rem;
 }
 
 .react-datepicker__calendar-icon {
-    margin: -5px;
+    margin-top: -.1rem;
+    margin-left: -.2rem;
 }
+

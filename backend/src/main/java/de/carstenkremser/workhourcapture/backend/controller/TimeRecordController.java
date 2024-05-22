@@ -21,11 +21,11 @@ public class TimeRecordController {
     public TimeRecord add(@RequestBody TimeBookingDto bookingBody) {
         return timeRecordService.addTimeRecord(bookingBody);
     }
-
+/*
     @GetMapping("/formonth")
     public List<TimeRecord> getFormonth(@RequestBody ReportMonthDto reportMonthBody) {
         YearMonth yearMonth = YearMonth.of(reportMonthBody.year(), reportMonthBody.month());
         return timeRecordService.getTimeRecordsForMonth(reportMonthBody.userId(), yearMonth);
     }
-
+*/
 }

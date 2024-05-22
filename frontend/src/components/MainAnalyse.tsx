@@ -4,6 +4,11 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import '../datepickerstyle.css';
 
+export type workingTime = {
+
+}
+
+
 export function MainAnalyse() {
 
     const [selectedMonth, setSelectedMonth] = useState<Date | null>(new Date());

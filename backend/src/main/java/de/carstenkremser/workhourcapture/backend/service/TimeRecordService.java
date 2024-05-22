@@ -3,14 +3,12 @@ package de.carstenkremser.workhourcapture.backend.service;
 import de.carstenkremser.workhourcapture.backend.dto.TimeBookingDto;
 import de.carstenkremser.workhourcapture.backend.model.TimeRecord;
 import de.carstenkremser.workhourcapture.backend.model.TimeRecordType;
-import de.carstenkremser.workhourcapture.backend.model.WorkingTime;
 import de.carstenkremser.workhourcapture.backend.repository.TimeRecordRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.time.*;
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -60,7 +58,7 @@ public class TimeRecordService {
         return queryResult.getFirst();
     }
 
-    public List<TimeRecord> getTimeRecordsForInterval(String userId, LocalDateTime startTime, LocalDateTime endTime) {
+    List<TimeRecord> getTimeRecordsForInterval(String userId, LocalDateTime startTime, LocalDateTime endTime) {
         return timeRecordRepository.findAllByUserIdAndDateTimeBetween(userId, startTime, endTime);
     }
 
@@ -70,7 +68,7 @@ public class TimeRecordService {
         return getTimeRecordsForInterval(userId, startTime, endTime);
     }
 
-
+/*
     public List<WorkingTime> getWorkingTimeForMonth(String userId, YearMonth monthAndYear) {
         TimeRecord lastBefore = getTimeRecordLatestBefore(
                 userId,
@@ -116,5 +114,5 @@ public class TimeRecordService {
         return startRecord.recordType().equals(TimeRecordType.WORKSTART)
                 && endRecord.recordType().equals(TimeRecordType.WORKEND);
     }
-
+*/
 }
