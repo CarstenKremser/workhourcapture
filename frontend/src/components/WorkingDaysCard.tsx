@@ -1,21 +1,35 @@
 import '../style.css';
-import {workingDaysType} from "./MainAnalyse.tsx";
+import {ReactElement} from "react";
+import {workingDaysType} from "./WorkingTimeData.tsx";
+import {WorkingDayCard} from "./WorkingDayCard.tsx";
 
-export function WorkingDaysCard(props: Readonly<workingDaysType>) {
+export function WorkingDaysCard(props: Readonly<workingDaysType>): ReactElement {
 
-    function renderAggregatedData() {
-        if (props) {
-            const allcocatedTime = props.allocated.toString();
-            const workedTime = props.worked.toString();
-            return (<>
-                <div>Allocated: {allcocatedTime}</div>
-                <div>Worked: {workedTime}</div>
-            </>)
-        }
-        return (<></>);
+    function renderAggregatedData(): ReactElement {
+        const allocatedTime = props.allocated.toString();
+        const workedTime = props.worked.toString();
+        return (<>
+            <div>Allocated: {allocatedTime}</div>
+            <div>Worked: {workedTime}</div>
+        </>)
     }
 
-    return (<>
+    function renderWorkingDaysCards(): ReactElement {
+        const cards: ReactElement[] = [];
+        props.workingDays.forEach(workingDay => {
+            cards.push(<WorkingDayCard
+                key={workingDay.date.toString()}
+                date={workingDay.date}
+                allocated={workingDay.allocated}
+                worked={workingDay.worked}
+                workingTimes={workingDay.workingTimes}
+            />);
+        });
+        return <>{cards}</>;
+    }
+
+    return <>
         {renderAggregatedData()}
-    </>);
+        {renderWorkingDaysCards()}
+    </>;
 }

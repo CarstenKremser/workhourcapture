@@ -1,8 +1,9 @@
+import {ReactElement} from 'react';
 import {Link, NavLink} from "react-router-dom";
 import timeIconWhite from '../assets/TimeIcon_white.svg'
 import '../style.css'
 
-export function NavBar() {
+export function NavBar(): ReactElement {
     return (<>
         <nav className="navbar">
             <Link to="/">

@@ -1,19 +1,14 @@
 import '../style.css';
-import React, {useState} from "react";
+import React, {ReactElement, useState} from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import '../datepickerstyle.css';
 import axios, {AxiosResponse} from "axios";
+import {workingDaysType} from "./WorkingTimeData.tsx";
 import {WorkingDaysCard} from "./WorkingDaysCard.tsx";
 
-export type workingDaysType = {
-    allocated: Date,
-    worked: Date,
-    workingDays: []
-}
 
-
-export function MainAnalyse() {
+export function MainAnalyse(): ReactElement {
 
     const [selectedMonth, setSelectedMonth] = useState<Date | null>(new Date());
     const [workingDays, setWorkingDays] = useState<workingDaysType | null>(null);
