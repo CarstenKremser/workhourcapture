@@ -26,11 +26,16 @@ function TimezoneName() {
 
 function RecordTypeToString(recordType: string) {
     switch (recordType) {
-        case "workstart": return "Arbeitsbeginn";
-        case "workend": return "Arbeitsende";
-        case "breakstart": return "Pausenbeginn";
-        case "breakend": return "Pausenende";
-        default: return "";
+        case "workstart":
+            return "Arbeitsbeginn";
+        case "workend":
+            return "Arbeitsende";
+        case "breakstart":
+            return "Pausenbeginn";
+        case "breakend":
+            return "Pausenende";
+        default:
+            return "";
     }
 }
 
@@ -51,17 +56,19 @@ export function MainRecordentry() {
 
     const onChangeRecordTime = (event: React.ChangeEvent<HTMLInputElement>) => {
         setRecordTime(event.target.value);
+        setEntryMethod("edited");
     }
 
     const onChangeRecordType = (event: React.ChangeEvent<HTMLSelectElement>) => {
         setRecordType(event.target.value);
+        setEntryMethod("edited");
     }
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         console.log("Entry Method " + entryMethod);
         if (entryMethod === "instant") {
-            axios.post("/api/timerecord/add",{
+            axios.post("/api/timerecord/add", {
                 "userId": "defaultUser",
                 "recordType": sugestedRecordType,
                 "timezoneOffset": TimezoneOffset(),
@@ -69,12 +76,12 @@ export function MainRecordentry() {
             }).then((response) => {
                 console.log(response);
                 alert("Buchung erfolgreich");
-            }).catch((error)=> {
+            }).catch((error) => {
                 console.log(error);
                 alert("Buchungsfehler: " + error.message);
             })
         } else if (entryMethod === "edited") {
-            axios.post("/api/timerecord/add",{
+            axios.post("/api/timerecord/add", {
                 "userId": "defaultUser",
                 "recordType": recordType,
                 "recordTimestamp": TimeWithoutTimezoneOffset(recordTime),
@@ -83,7 +90,7 @@ export function MainRecordentry() {
             }).then((response) => {
                 console.log(response);
                 alert("Buchung erfolgreich");
-            }).catch((error)=> {
+            }).catch((error) => {
                 console.log(error);
                 alert("Buchungsfehler: " + error.message);
             })
@@ -106,8 +113,9 @@ export function MainRecordentry() {
                                name="recordtime-instant"
                                value="instant"
                                checked={entryMethod === "instant"}
-                               onChange={onChangeEntryMethod} />
-                        <label htmlFor="recordtime-instant" id="recordtime-instant-label">{RecordTypeToString(sugestedRecordType)} jetzt</label>
+                               onChange={onChangeEntryMethod}/>
+                        <label htmlFor="recordtime-instant"
+                               id="recordtime-instant-label">{RecordTypeToString(sugestedRecordType)} jetzt</label>
                     </div>
 
                     <div className="recordtime-radiocontainer">
@@ -117,10 +125,10 @@ export function MainRecordentry() {
                                name="recordtime-edited"
                                value="edited"
                                checked={entryMethod === "edited"}
-                               onChange={onChangeEntryMethod} />
+                               onChange={onChangeEntryMethod}/>
                         <label htmlFor="recordtime-edited">manuell:</label>
                         <select name="recordtime-bookingtype" id="recordtime-select"
-                        onChange={onChangeRecordType}>
+                                onChange={onChangeRecordType}>
                             <option value="workstart">Arbeitsbeginn</option>
                             <option value="workend">Arbeitsende</option>
                         </select>
@@ -130,7 +138,7 @@ export function MainRecordentry() {
                                    value={recordTime}
                                    min="2024-05-01T00:00"
                                    max="2024-06-01T00:00"
-                                   onChange={onChangeRecordTime} />
+                                   onChange={onChangeRecordTime}/>
                         </div>
                     </div>
 
