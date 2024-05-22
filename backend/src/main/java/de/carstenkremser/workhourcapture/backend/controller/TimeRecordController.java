@@ -1,14 +1,10 @@
 package de.carstenkremser.workhourcapture.backend.controller;
 
-import de.carstenkremser.workhourcapture.backend.dto.ReportMonthDto;
 import de.carstenkremser.workhourcapture.backend.dto.TimeBookingDto;
 import de.carstenkremser.workhourcapture.backend.model.TimeRecord;
 import de.carstenkremser.workhourcapture.backend.service.TimeRecordService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-
-import java.time.YearMonth;
-import java.util.List;
 
 @RestController
 @RequestMapping ("/api/timerecord")
