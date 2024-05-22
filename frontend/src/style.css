@@ -97,6 +97,14 @@ h1 {
 }
 
 
+.main-recordentry {
+  margin: 1rem;
+}
+
+.main-analyse {
+  margin: 1rem;
+}
+
 .recordtime-editfieldset {
   display: flex;
   flex-direction: column;
