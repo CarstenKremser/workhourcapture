@@ -1,6 +1,6 @@
 import '../styles/style.css';
 import '../styles/styles_analyse.css';
-import React, {ReactElement, useState} from "react";
+import React, {ReactElement, useEffect, useState} from "react";
 import axios, {AxiosResponse} from "axios";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -17,6 +17,10 @@ export function MainAnalyse(): ReactElement {
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         console.log("Submit clicked");
+        updateMonthReport();
+    }
+
+    function updateMonthReport(){
         if (selectedMonth) {
             const year = selectedMonth.getFullYear() as number;
             const month = selectedMonth?.getMonth() + 1 as number;
@@ -39,6 +43,8 @@ export function MainAnalyse(): ReactElement {
         }
     }
 
+    useEffect(() => {updateMonthReport();}, [selectedMonth]);
+
     const renderMonthContent = (_month: number, shortMonth: string, longMonth: string) => {
         const fullYear = new Date().getFullYear();
         const tooltipText = `Tooltip for month: ${longMonth} ${fullYear}`;
@@ -57,7 +63,9 @@ export function MainAnalyse(): ReactElement {
                             id="analyse-monthSelect"
                             className="monthSelect"
                             selected={selectedMonth}
-                            onChange={(date) => setSelectedMonth(date)}
+                            onChange={(date) => {
+                                setSelectedMonth(date);
+                            }}
                             renderMonthContent={renderMonthContent}
                             showMonthYearPicker
                             showIcon

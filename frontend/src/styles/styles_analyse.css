@@ -14,7 +14,7 @@
 
 .analyse-buttonsubmit>.submit {
     display: block;
-    font-size: large;
+    font-size: medium;
     text-decoration: none;
     background-color: var(--button-background);
     color: var(--bar-color);
