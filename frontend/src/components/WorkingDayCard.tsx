@@ -3,31 +3,47 @@ import '../styles/styles_analyse.css';
 import {ReactElement} from 'react';
 import {workingDayType} from "./WorkingTimeData.tsx";
 
+export function addClassNegativeWhenDateIsLessThanZero(theDate: Date, classNames: string): string {
+    if (theDate.toString().startsWith("-")) {
+        return classNames + " negative";
+    }
+    return classNames;
+}
 
 export function WorkingDayCard(props: Readonly<workingDayType>): ReactElement {
+
+    function renderDaySummary(): ReactElement {
+
+        return <>
+            <div className="day-data day-date">{props.date.toString()}</div>
+            <div className="day-data day-allocated">{props.allocated.toString()}</div>
+            <div className="day-data day-worked">{props.worked.toString()}</div>
+            <div className={addClassNegativeWhenDateIsLessThanZero(
+                props.difference, "day-data day-difference")
+            }>{props.difference.toString()}</div>
+        </>
+    }
 
     function renderWorkingTimes(): ReactElement {
         const times: ReactElement[] = [];
         props.workingTimes.forEach(workingTime => {
 
             times.push(
-                <div className={"workingday-times"}>
-                    <div>StartTime: {workingTime.startTime.toString()}</div>
-                    <div>EndTime: {workingTime.endTime.toString()}</div>
-                    <div>Duration: {workingTime.duration.toString()}</div>
-                    <div>EndDate: {workingTime.endDate.toString()}</div>
+                <div className={"interval"}>
+                    <div className={"interval-data interval-starttime"}>{workingTime.startTime.toString()}</div>
+                    <div className={"interval-data interval-endtime"}>{workingTime.endTime.toString()}</div>
+                    <div className={"interval-data interval-worked"}>{workingTime.duration.toString()}</div>
+                    <div className={"interval-data interval-enddate"}>{workingTime.endDate.toString()}</div>
                 </div>
             );
-        })
-        return <>{times}</>
+        });
+        return <>{times}</>;
     }
 
-    return <>
-        <div className="workingday-card">
-            <div className={"workingday-date"}>Date: {props.date.toString()}</div>
-            <div className={"workingday-allocated"}>Allocated: {props.allocated.toString()}</div>
-            <div className={"workingday-worked"}>Worked: {props.worked.toString()}</div>
-            <div className={"workingday-times-list"}>{renderWorkingTimes()}</div>
+    return (<>
+        <div className="day-card">
+            {renderDaySummary()}
+            <div className={"day-intervals"}>{renderWorkingTimes()}</div>
         </div>
-    </>;
+    </>);
 }

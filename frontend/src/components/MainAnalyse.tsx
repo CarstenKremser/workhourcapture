@@ -1,10 +1,10 @@
 import '../styles/style.css';
 import '../styles/styles_analyse.css';
 import React, {ReactElement, useState} from "react";
+import axios, {AxiosResponse} from "axios";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import '../styles/datepickerstyle.css';
-import axios, {AxiosResponse} from "axios";
 import {workingDaysType} from "./WorkingTimeData.tsx";
 import {WorkingDaysCard} from "./WorkingDaysCard.tsx";
 
@@ -49,7 +49,7 @@ export function MainAnalyse(): ReactElement {
     return (<>
         <main className="main-analyse">
             <form onSubmit={handleSubmit}>
-                <h2>Analyse/Report-Container</h2>
+                <h2>Analyse/Report</h2>
                 <div className="analyse-select-container">
                     <div className="analyse-select-pickdate">
                         <label htmlFor="monthSelect">Monat auswählen: </label>
@@ -72,15 +72,14 @@ export function MainAnalyse(): ReactElement {
                 </div>
             </form>
             <div className="analyse-display-container">
-                <div className="analyse-display-worktimes">
-                    {workingDays
-                        ? <WorkingDaysCard
-                            allocated={workingDays.allocated}
-                            worked={workingDays.worked}
-                            workingDays={workingDays.workingDays} />
-                        : <></>
-                    }
-                </div>
+                {workingDays
+                    ? <WorkingDaysCard
+                        allocated={workingDays.allocated}
+                        worked={workingDays.worked}
+                        difference={workingDays.difference}
+                        workingDays={workingDays.workingDays}/>
+                    : <></>
+                }
             </div>
         </main>
     </>)
