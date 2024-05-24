@@ -33,7 +33,9 @@ export function WorkingDayCard(props: Readonly<workingDayType>): ReactElement {
                     <div className={"interval-data interval-starttime"}>{workingTime.startTime.toString()}</div>
                     <div className={"interval-data interval-endtime"}>{workingTime.endTime.toString()}</div>
                     <div className={"interval-data interval-worked"}>{workingTime.duration.toString()}</div>
-                    <div className={"interval-data interval-enddate"}>{workingTime.endDate.toString()}</div>
+                    {props.date !== workingTime.endDate && workingTime.endDate.toString() !== ""
+                        ? <div className={"interval-data interval-enddate"}>{workingTime.endDate.toString()}</div>
+                        : <></>}
                 </div>
             );
         });
