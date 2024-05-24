@@ -1,7 +1,7 @@
 import {ReactElement} from 'react';
 import {Link, NavLink} from "react-router-dom";
 import timeIconWhite from '../assets/TimeIcon_white.svg'
-import '../style.css'
+import '../styles/style.css'
 
 export function NavBar(): ReactElement {
     return (<>

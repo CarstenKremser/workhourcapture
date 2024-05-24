@@ -1,4 +1,4 @@
-import '../style.css'
+import '../styles/style.css'
 import React, {ReactElement, useEffect, useState} from "react";
 import axios from "axios";
 

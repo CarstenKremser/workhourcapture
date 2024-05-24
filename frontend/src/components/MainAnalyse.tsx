@@ -1,8 +1,9 @@
-import '../style.css';
+import '../styles/style.css';
+import '../styles/styles_analyse.css';
 import React, {ReactElement, useState} from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import '../datepickerstyle.css';
+import '../styles/datepickerstyle.css';
 import axios, {AxiosResponse} from "axios";
 import {workingDaysType} from "./WorkingTimeData.tsx";
 import {WorkingDaysCard} from "./WorkingDaysCard.tsx";

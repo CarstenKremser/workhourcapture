@@ -1,4 +1,5 @@
-import '../style.css';
+import '../styles/style.css';
+import '../styles/styles_analyse.css';
 import {ReactElement} from 'react';
 import {workingDayType} from "./WorkingTimeData.tsx";
 
