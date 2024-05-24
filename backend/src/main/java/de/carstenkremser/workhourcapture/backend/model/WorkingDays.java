@@ -14,4 +14,8 @@ public record WorkingDays(
         }
         return sum;
     }
+
+    public Duration difference() {
+        return worked().minus(allocated);
+    }
 }

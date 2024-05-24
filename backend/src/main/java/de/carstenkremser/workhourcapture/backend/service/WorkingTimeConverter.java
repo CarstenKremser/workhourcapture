@@ -23,7 +23,7 @@ public class WorkingTimeConverter {
         }
         long seconds = duration.getSeconds();
         long hours = seconds / 3600;
-        long minutes = (seconds % 3600) / 60;
+        long minutes = Math.abs((seconds % 3600) / 60);
 
         return String.format("%1d:%02d", hours, minutes);
     }
@@ -46,11 +46,12 @@ public class WorkingTimeConverter {
 
     public WorkingDaysOutputDto convertWorkingDaysToDto(WorkingDays workingDays) {
         if (workingDays == null) {
-            return new WorkingDaysOutputDto("", "", List.of());
+            return new WorkingDaysOutputDto("", "","", List.of());
         }
         return new WorkingDaysOutputDto(
                 convertDurationToString(workingDays.allocated()),
                 convertDurationToString(workingDays.worked()),
+                convertDurationToString(workingDays.difference()),
                 workingDays.workingDays()
                         .stream()
                         .map(this::convertWorkingDayToDto)
@@ -60,12 +61,13 @@ public class WorkingTimeConverter {
 
     public WorkingDayOutputDto convertWorkingDayToDto(WorkingDay workingDay) {
         if (workingDay == null) {
-            return new WorkingDayOutputDto("", "", "", List.of());
+            return new WorkingDayOutputDto("", "", "", "", List.of());
         }
         return new WorkingDayOutputDto(
                 convertLocalDateToString(workingDay.getDate()),
                 convertDurationToString(workingDay.getAllocated()),
                 convertDurationToString(workingDay.getWorkingTime()),
+                convertDurationToString(workingDay.getDifference()),
                 workingDay.getWorkingTimes()
                         .stream()
                         .map(this::convertWorkingTimeToDto)
