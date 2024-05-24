@@ -2,6 +2,35 @@
 
 }
 
+.analyse-select-container {
+    height: 3rem;
+    margin-bottom: 1rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    vertical-align: center;
+
+}
+
+.analyse-buttonsubmit>.submit {
+    display: block;
+    font-size: large;
+    text-decoration: none;
+    background-color: var(--button-background);
+    color: var(--bar-color);
+    padding: 0.5rem;
+    margin: 0;
+    margin-left: 2rem;
+    border-radius: 0.5rem;
+    border-style: solid;
+    border-width: 2px;
+    border-color: dimgray;
+}
+
+.analyse-buttonsubmit>.submit:hover {
+    border-color: chocolate;
+}
+
 .analyse-display-container {
     margin: 0;
 

@@ -48,8 +48,8 @@ export function MainAnalyse(): ReactElement {
 
     return (<>
         <main className="main-analyse">
+            <h2>Analyse/Report</h2>
             <form onSubmit={handleSubmit}>
-                <h2>Analyse/Report</h2>
                 <div className="analyse-select-container">
                     <div className="analyse-select-pickdate">
                         <label htmlFor="monthSelect">Monat auswählen: </label>
@@ -61,14 +61,12 @@ export function MainAnalyse(): ReactElement {
                             renderMonthContent={renderMonthContent}
                             showMonthYearPicker
                             showIcon
-
                             dateFormat="MM.yyyy"
                         />
                     </div>
-                </div>
-                <div className="analyse-buttonsubmit">
-                    <input type="submit" className="submit" value="aktualisieren"></input>
-
+                    <div className="analyse-buttonsubmit">
+                        <input type="submit" className="submit" value="aktualisieren"></input>
+                    </div>
                 </div>
             </form>
             <div className="analyse-display-container">
