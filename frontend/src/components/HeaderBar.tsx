@@ -1,6 +1,7 @@
-import '../style.css'
+import '../styles/style.css'
+import {ReactElement} from 'react';
 
-export function HeaderBar() {
+export function HeaderBar(): ReactElement {
     return (<>
         <header className="headerbar">
             <h1>Work Hour Capture</h1>

@@ -35,4 +35,8 @@ public class WorkingDay {
         }
         return sum;
     }
+
+    public Duration getDifference() {
+        return getWorkingTime().minus(allocated);
+    }
 }

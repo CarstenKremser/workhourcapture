@@ -1,5 +1,5 @@
-import '../style.css'
-import React, {useEffect, useState} from "react";
+import '../styles/style.css'
+import React, {ReactElement, useEffect, useState} from "react";
 import axios from "axios";
 
 function DateTimeNow() {
@@ -39,7 +39,7 @@ function RecordTypeToString(recordType: string) {
     }
 }
 
-export function MainRecordentry() {
+export function MainRecordentry(): ReactElement {
 
     const [sugestedRecordType, setSugestedRecordType] = useState("workstart");
     const [entryMethod, setEntryMethod] = useState("instant");

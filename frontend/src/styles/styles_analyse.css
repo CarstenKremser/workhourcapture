@@ -1,0 +1,204 @@
+.main-analyse {
+
+}
+
+.analyse-select-container {
+    height: 3rem;
+    margin-bottom: 1rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    vertical-align: center;
+
+}
+
+.analyse-buttonsubmit>.submit {
+    display: block;
+    font-size: medium;
+    text-decoration: none;
+    background-color: var(--button-background);
+    color: var(--bar-color);
+    padding: 0.5rem;
+    margin: 0;
+    margin-left: 2rem;
+    border-radius: 0.5rem;
+    border-style: solid;
+    border-width: 2px;
+    border-color: dimgray;
+}
+
+.analyse-buttonsubmit>.submit:hover {
+    border-color: chocolate;
+}
+
+.analyse-display-container {
+    margin: 0;
+
+}
+
+.period-summary {
+    padding: 0 0.5rem;
+    padding-bottom: 0.25rem;
+
+    display: grid;
+    column-gap: 0.5rem;
+    row-gap: 0.4rem;
+    grid-template-columns: 
+        7rem 4rem 4rem 4rem 4rem auto;
+
+    background-color: lightyellow;
+    border: 1px;
+    border-style: solid;
+    border-color: black;
+    border-radius: 0.25rem;
+}
+
+.period-label {
+    padding-right: 0.5rem;
+    text-align: right;
+    font-weight: 700;
+}
+
+.period-seperator {
+    position: absolute;
+    top: 2rem;
+    border:solid darkgray 1px;
+    width: 26rem;
+    text-align:left;
+}
+
+.period-data {
+    text-align: right;
+}
+
+.period-data.negative {
+    font-weight: bold;
+    color: red;
+}
+
+.label-allocated {
+    grid-column: 3;
+}
+
+.period-allocated {
+    grid-column: 3;
+}
+
+.label-worked {
+    grid-column: 4;
+}
+
+.period-worked {
+    grid-column: 4;
+}
+
+.day-card {
+    margin-top: 0.3rem;
+    padding: 0.5rem;
+
+    display: grid;
+    column-gap: 0.5rem;
+    row-gap: 0.2rem;
+    grid-template-columns: 
+        7rem 4rem 4rem 4rem 4rem auto;
+
+    background-color: lightgray;
+    border: 1px;
+    border-style: solid;
+    border-color: black;
+    border-radius: 0.25rem;
+
+    text-align: right;
+}
+
+.day-summary {
+    margin-top: 0.25rem;
+    padding: 0 0.5rem;
+    display: grid;
+    column-gap: 0.5rem;
+    row-gap: 0.2rem;
+    grid-template-columns: 
+        7rem 4rem 4rem 4rem 4rem auto;
+}
+
+hr.day-summary-seperator {
+    position: relative;
+    top: 1rem;
+    border:solid darkgray 1px;
+    width: 26rem;
+    height: 0;
+    text-align:left;
+}
+
+.day-summary-seperator {
+    grid-row: 1;
+    grid-column: 1;
+}
+
+.day-data {
+}
+
+.day-data.negative {
+    font-weight: bold;
+    color: red;
+}
+
+.day-date {
+    grid-row: 1;
+    grid-column: 1;
+}
+
+.day-allocated {
+    grid-row: 1;
+    grid-column: 3;
+}
+
+.day-worked {
+    grid-row: 1;
+    grid-column: 4;
+}
+
+.day-difference {
+    grid-row: 1;
+    grid-column: 5;
+}
+
+.day-intervals {
+    grid-row-start: 2;
+    grid-column-end:  span 5;
+}
+
+.interval {
+    margin-top: 0.1rem;
+    padding: 0;
+
+    display: grid;
+    column-gap: 0.5rem;
+    grid-template-columns: 
+        7rem 4rem 4rem 4rem 4rem auto;
+}
+
+.day-incomplete {
+    color: red;
+}
+
+.interval-starttime {
+    grid-row: 1;
+    grid-column: 1;
+}
+
+.interval-endtime {
+    grid-row: 1;
+    grid-column: 2;
+}
+
+.interval-worked {
+    grid-row: 1;
+    grid-column: 4;
+}
+
+.interval-enddate {
+    font-size: x-small;
+    grid-row: 2;
+    grid-column: 2;
+}
