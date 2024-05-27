@@ -7,9 +7,14 @@ import "react-datepicker/dist/react-datepicker.css";
 import '../styles/datepickerstyle.css';
 import {workingDaysType} from "./WorkingTimeData.tsx";
 import {WorkingDaysCard} from "./WorkingDaysCard.tsx";
+import {User} from "./UserData.ts";
+import {LoginAdviceCard} from "./LoginAdviceCard.tsx";
 
+export type MainAnalyseProps = {
+    user: User | null;
+}
 
-export function MainAnalyse(): ReactElement {
+export function MainAnalyse(props: MainAnalyseProps): ReactElement {
 
     const [selectedMonth, setSelectedMonth] = useState<Date | null>(new Date());
     const [workingDays, setWorkingDays] = useState<workingDaysType | null>(null);
@@ -52,41 +57,50 @@ export function MainAnalyse(): ReactElement {
         return <span title={tooltipText}>{shortMonth}</span>;
     };
 
-    return (<>
-        <main className="main-analyse">
-            <h2>Analyse/Report</h2>
-            <form onSubmit={handleSubmit}>
-                <div className="analyse-select-container">
-                    <div className="analyse-select-pickdate">
-                        <label htmlFor="monthSelect">Monat auswählen: </label>
-                        <DatePicker
-                            id="analyse-monthSelect"
-                            className="monthSelect"
-                            selected={selectedMonth}
-                            onChange={(date) => {
-                                setSelectedMonth(date);
-                            }}
-                            renderMonthContent={renderMonthContent}
-                            showMonthYearPicker
-                            showIcon
-                            dateFormat="MM.yyyy"
-                        />
+    function mainAnalyse(): ReactElement {
+        return <>
+            <main className="main-analyse">
+                <h2>Analyse/Report</h2>
+                <form onSubmit={handleSubmit}>
+                    <div className="analyse-select-container">
+                        <div className="analyse-select-pickdate">
+                            <label htmlFor="monthSelect">Monat auswählen: </label>
+                            <DatePicker
+                                id="analyse-monthSelect"
+                                className="monthSelect"
+                                selected={selectedMonth}
+                                onChange={(date) => {
+                                    setSelectedMonth(date);
+                                }}
+                                renderMonthContent={renderMonthContent}
+                                showMonthYearPicker
+                                showIcon
+                                dateFormat="MM.yyyy"
+                            />
+                        </div>
+                        <div className="analyse-buttonsubmit">
+                            <input type="submit" className="submit" value="aktualisieren"></input>
+                        </div>
                     </div>
-                    <div className="analyse-buttonsubmit">
-                        <input type="submit" className="submit" value="aktualisieren"></input>
-                    </div>
+                </form>
+                <div className="analyse-display-container">
+                    {workingDays
+                        ? <WorkingDaysCard
+                            allocated={workingDays.allocated}
+                            worked={workingDays.worked}
+                            difference={workingDays.difference}
+                            workingDays={workingDays.workingDays}/>
+                        : <></>
+                    }
                 </div>
-            </form>
-            <div className="analyse-display-container">
-                {workingDays
-                    ? <WorkingDaysCard
-                        allocated={workingDays.allocated}
-                        worked={workingDays.worked}
-                        difference={workingDays.difference}
-                        workingDays={workingDays.workingDays}/>
-                    : <></>
-                }
-            </div>
-        </main>
+            </main>
+        </>
+    }
+
+    return (<>
+        {(props.user !== undefined && props.user !== null)
+            ? mainAnalyse()
+            : <LoginAdviceCard />
+        }
     </>)
 }

@@ -1,21 +1,36 @@
 import '../styles/style.css';
 import '../styles/styles_login.css';
-import {ReactElement, useState} from "react";
+import React, {ReactElement, useState} from "react";
+import {User} from './UserData.ts';
+import {useNavigate} from "react-router-dom";
 
+type LoginCardProps = {
+    setUser: (user: User | null) => void;
+}
 
-export function LoginCard(): ReactElement {
+export function MainLogin(props: LoginCardProps): ReactElement {
 
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
 
-    function handleSubmit(event: React.FormEvent<HTMLInputElement>) {
+    const navigate = useNavigate()
+
+    function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault();
         console.log("Login submit");
+        const user: User = {
+            id: "",
+            username: username,
+            password: password
+        }
+        console.log("LoginCard - User is: ",user);
+        props.setUser(user);
+        navigate("/");
     }
 
     function loginForm(): ReactElement {
         return <>
-            <form className="login-form">
+            <form className="login-form" onSubmit={handleSubmit}>
                 <h2> Login:</h2>
                 <ul>
                     <li className="login-label">
@@ -23,6 +38,7 @@ export function LoginCard(): ReactElement {
                     </li>
                     <li className="login-input">
                         <input
+                            autoFocus
                             id={"login-username"}
                             type={"text"}
                             value={username}
@@ -44,7 +60,6 @@ export function LoginCard(): ReactElement {
                         <input
                             id={"login-submit"}
                             type={"submit"}
-                            onSubmit={handleSubmit}
                             value="login"
                         />
                     </li>
@@ -54,8 +69,8 @@ export function LoginCard(): ReactElement {
     }
 
     return <>
-        <div className="login-card">
+        <main className="main-login">
             {loginForm()}
-        </div>
+        </main>
     </>;
 }
