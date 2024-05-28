@@ -7,7 +7,7 @@ export type LogoutCardProps = {
 export function MainLogout(props: LogoutCardProps) {
     props.setUser(null);
     return <>
-        <main>
+        <main className="main-logout">
             <p>Du wurdest abgemeldet!</p>
         </main>
     </>;
