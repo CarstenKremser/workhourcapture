@@ -48,12 +48,13 @@ public class AppUserDetailsService implements UserDetailsService {
             AppUser appUser = userRepositiory.findByUsername(username)
                     .orElseThrow(() -> new UsernameNotFoundException("User: " + username + " not found!"));
             return new LoginUserDto(
+                    appUser.id(),
                     appUser.username(),
                     appUser.firstName(),
                     appUser.lastName()
             );
         } catch (UsernameNotFoundException _e) {
-            return new LoginUserDto(username, "", "");
+            return new LoginUserDto("", username, "", "");
         }
     }
 
