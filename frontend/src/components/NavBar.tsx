@@ -12,7 +12,7 @@ export function NavBar(props: NavBarProps): ReactElement {
 
     function getDisplayName() {
         if (props.user) {
-            return props.user.username;
+            return props.user.firstname;
         }
         return "Gast";
     }
