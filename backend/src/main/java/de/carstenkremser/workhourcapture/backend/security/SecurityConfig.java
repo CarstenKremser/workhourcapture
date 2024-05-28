@@ -16,6 +16,12 @@ import org.springframework.security.web.csrf.CsrfTokenRequestAttributeHandler;
 @Configuration
 public class SecurityConfig {
 
+    final private String[] PUBLIC_URLS = new String[]{
+            "/api/user/login",
+            "/api/user/logout",
+            "/api/user/register"
+    };
+
     @Bean
     public PasswordEncoder passwordEncoder() {
         return Argon2PasswordEncoder.defaultsForSpringSecurity_v5_8();
@@ -29,15 +35,22 @@ public class SecurityConfig {
         http
                 .csrf(csrf -> csrf
                         .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
-                        .csrfTokenRequestHandler(requestAttributeHandler))
+                        .csrfTokenRequestHandler(requestAttributeHandler)
+                        .ignoringRequestMatchers(PUBLIC_URLS)
+                )
+//                .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(request -> {
+                    request.requestMatchers("/api/user/register").permitAll();
                     request.requestMatchers("/api/workingtime").authenticated();
                     request.requestMatchers("/api/timerecord").authenticated();
                     request.anyRequest().permitAll();
                 })
                 .sessionManagement(c -> c.sessionCreationPolicy(SessionCreationPolicy.ALWAYS))
-                .httpBasic(c ->{
-                    c.authenticationEntryPoint(((request, response, authException) -> response.sendError(HttpStatus.UNAUTHORIZED.value(), HttpStatus.UNAUTHORIZED.getReasonPhrase())));
+                .httpBasic(c -> {
+                    c.authenticationEntryPoint(((request, response, authException) ->
+                            response.sendError(
+                                    HttpStatus.UNAUTHORIZED.value(),
+                                    HttpStatus.UNAUTHORIZED.getReasonPhrase())));
                     c.init(http);
                 });
         return http.build();

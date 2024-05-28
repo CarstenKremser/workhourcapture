@@ -1,5 +1,6 @@
 package de.carstenkremser.workhourcapture.backend.service;
 
+import de.carstenkremser.workhourcapture.backend.dto.RegisterUserDto;
 import de.carstenkremser.workhourcapture.backend.model.AppUser;
 import de.carstenkremser.workhourcapture.backend.repository.AppUserRepositiory;
 import lombok.RequiredArgsConstructor;
@@ -8,21 +9,17 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.argon2.Argon2PasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor
 public class AppUserDetailsService implements UserDetailsService {
 
     private final AppUserRepositiory userRepositiory;
-
-    //private Argon2PasswordEncoder encoder = Argon2PasswordEncoder.defaultsForSpringSecurity_v5_8();
-
+    private final IdGenerator idGenerator;
     private final PasswordEncoder passwordEncoder;
 
     @Override
@@ -45,7 +42,15 @@ public class AppUserDetailsService implements UserDetailsService {
                 );
     }
 
-    public void saveNewUser(AppUser user) {
+    public void saveNewUser(RegisterUserDto userDto) {
+        AppUser user = new AppUser(
+                idGenerator.createId(),
+                userDto.username(),
+                passwordEncoder.encode(userDto.password()),
+                userDto.firstName(),
+                userDto.lastName(),
+                userDto.email()
+        );
         userRepositiory.save(user);
     }
 }

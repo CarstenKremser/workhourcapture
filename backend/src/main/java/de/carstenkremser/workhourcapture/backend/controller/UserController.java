@@ -1,13 +1,11 @@
 package de.carstenkremser.workhourcapture.backend.controller;
 
+import de.carstenkremser.workhourcapture.backend.dto.RegisterUserDto;
 import de.carstenkremser.workhourcapture.backend.service.AppUserDetailsService;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/user")
@@ -36,5 +34,11 @@ public class UserController {
     public void logout(HttpSession session) {
         session.invalidate();
         SecurityContextHolder.clearContext();
+    }
+
+    @PostMapping("/register")
+    public void register(@RequestBody RegisterUserDto userDto) {
+
+        detailsService.saveNewUser(userDto);
     }
 }

@@ -10,6 +10,7 @@ public record AppUser(
         String username,
         String password,
         String firstName,
-        String lastName
+        String lastName,
+        String email
 ) {
 }
