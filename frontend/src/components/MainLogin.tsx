@@ -13,39 +13,32 @@ export function MainLogin(props: LoginCardProps): ReactElement {
 
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
-    const [statustext,setStatustext] = useState("");
+    const [statustext, setStatustext] = useState("");
 
     const navigate = useNavigate()
 
     function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault();
         console.log("Login submit");
-        axios("/api/user/me", {
-                method: "get",
-            }
-        ).then(() =>
-            axios("/api/user/login", {
-                    method: "post",
-                    auth: {
-                        username: username,
-                        password: password
-                    }
+        axios("/api/user/login", {
+                method: "post",
+                auth: {
+                    username: username,
+                    password: password
                 }
-            ).then((response) => {
-                props.setUser(response.data);
-                console.log(response.data);
-            }).then(() => navigate("/"))
-            .catch((error) => {
+            }
+        ).then((response) => {
+            props.setUser(response.data);
+            console.log(response.data);
+        }).then(() => navigate("/")
+        ).catch((error) => {
                 //console.log(error);
                 if (error.response.status === 401) {
                     setStatustext("Benutzer/Kennwort unbekannt");
                 } else {
                     setStatustext("Login fehlgeschlagen");
                 }
-            })
-        ).catch(() => {
-            setStatustext("Login fehlgeschlagen");
-        })
+        });
     }
 
     function loginForm(): ReactElement {
