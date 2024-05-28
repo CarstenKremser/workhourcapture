@@ -36,9 +36,9 @@ export function MainLogin(props: LoginCardProps): ReactElement {
                 console.log(response.data);
             }).then(() => navigate("/"))
             .catch((error) => {
-                console.log(error);
+                //console.log(error);
                 if (error.response.status === 401) {
-                    setStatustext("Benutzer / Kennwort unbekannt");
+                    setStatustext("Benutzer/Kennwort unbekannt");
                 } else {
                     setStatustext("Login fehlgeschlagen");
                 }
