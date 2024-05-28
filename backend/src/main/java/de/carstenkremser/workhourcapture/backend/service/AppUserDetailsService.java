@@ -1,5 +1,6 @@
 package de.carstenkremser.workhourcapture.backend.service;
 
+import de.carstenkremser.workhourcapture.backend.dto.LoginUserDto;
 import de.carstenkremser.workhourcapture.backend.dto.RegisterUserDto;
 import de.carstenkremser.workhourcapture.backend.model.AppUser;
 import de.carstenkremser.workhourcapture.backend.repository.AppUserRepositiory;
@@ -40,6 +41,20 @@ public class AppUserDetailsService implements UserDetailsService {
                 appUser.password(),
                 Collections.singletonList(new SimpleGrantedAuthority("ROLE_USER"))
                 );
+    }
+
+    public LoginUserDto getUserDtoByUsername(String username) {
+        try {
+            AppUser appUser = userRepositiory.findByUsername(username)
+                    .orElseThrow(() -> new UsernameNotFoundException("User: " + username + " not found!"));
+            return new LoginUserDto(
+                    appUser.username(),
+                    appUser.firstName(),
+                    appUser.lastName()
+            );
+        } catch (UsernameNotFoundException _e) {
+            return new LoginUserDto(username, "", "");
+        }
     }
 
     public void saveNewUser(RegisterUserDto userDto) {

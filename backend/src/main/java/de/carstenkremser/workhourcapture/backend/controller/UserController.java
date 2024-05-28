@@ -1,5 +1,6 @@
 package de.carstenkremser.workhourcapture.backend.controller;
 
+import de.carstenkremser.workhourcapture.backend.dto.LoginUserDto;
 import de.carstenkremser.workhourcapture.backend.dto.RegisterUserDto;
 import de.carstenkremser.workhourcapture.backend.service.AppUserDetailsService;
 import jakarta.servlet.http.HttpSession;
@@ -23,11 +24,12 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public String login() {
-        return SecurityContextHolder
+    public LoginUserDto login() {
+        String username = SecurityContextHolder
                 .getContext()
                 .getAuthentication()
                 .getName();
+        return detailsService.getUserDtoByUsername(username);
     }
 
     @PostMapping("/logout")
