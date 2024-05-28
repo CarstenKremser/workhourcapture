@@ -38,7 +38,6 @@ public class SecurityConfig {
                         .csrfTokenRequestHandler(requestAttributeHandler)
                         .ignoringRequestMatchers(PUBLIC_URLS)
                 )
-//                .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(request -> {
                     request.requestMatchers("/api/user/register").permitAll();
                     request.requestMatchers("/api/workingtime").authenticated();
