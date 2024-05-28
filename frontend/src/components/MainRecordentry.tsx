@@ -75,7 +75,7 @@ export function MainRecordentry(props: MainRecordentryProps): ReactElement {
         console.log("Entry Method " + entryMethod);
         if (entryMethod === "instant") {
             axios.post("/api/timerecord/add", {
-                "userId": props.user?.username,
+                "userId": props.user?.userid,
                 "recordType": sugestedRecordType,
                 "timezoneOffset": TimezoneOffset(),
                 "timezoneName": TimezoneName(),
@@ -88,7 +88,7 @@ export function MainRecordentry(props: MainRecordentryProps): ReactElement {
             })
         } else if (entryMethod === "edited") {
             axios.post("/api/timerecord/add", {
-                "userId": props.user?.username,
+                "userId": props.user?.userid,
                 "recordType": recordType,
                 "recordTimestamp": TimeWithoutTimezoneOffset(recordTime),
                 "timezoneOffset": TimezoneOffset(),

@@ -33,7 +33,7 @@ export function MainAnalyse(props: MainAnalyseProps): ReactElement {
                     method: "post",
                     url: "/api/workingtime/formonth",
                     data: {
-                        userId: props.user?.username,
+                        userId: props.user?.userid,
                         year: year,
                         month: month
                     }
