@@ -25,37 +25,24 @@ public class AppUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        // >>> für development:
-        if (username.equals("defaultUser")) {
-            return new User(
-                    "defaultUser",
-                    passwordEncoder.encode("test"),
-                    //"$argon2i$v=19$m=16,t=2,p=1$YXNkZnF3ZXJ0eg$boCWOOuJl1LI1c1PUA1g5A", // password="test", salt= "asdfqwertz"
-                    Collections.singletonList(new SimpleGrantedAuthority("ROLE_USER")));
-        }
-        // <<<
         AppUser appUser = userRepositiory.findByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User: " + username + " not found!"));
         return new User(
                 appUser.username(),
                 appUser.password(),
                 Collections.singletonList(new SimpleGrantedAuthority("ROLE_USER"))
-                );
+        );
     }
 
-    public LoginUserDto getUserDtoByUsername(String username) {
-        try {
-            AppUser appUser = userRepositiory.findByUsername(username)
-                    .orElseThrow(() -> new UsernameNotFoundException("User: " + username + " not found!"));
-            return new LoginUserDto(
-                    appUser.id(),
-                    appUser.username(),
-                    appUser.firstName(),
-                    appUser.lastName()
-            );
-        } catch (UsernameNotFoundException _e) {
-            return new LoginUserDto("", username, "", "");
-        }
+    public LoginUserDto getUserDtoByUsername(String username) throws UsernameNotFoundException {
+        AppUser appUser = userRepositiory.findByUsername(username)
+                .orElseThrow(() -> new UsernameNotFoundException("User: " + username + " not found!"));
+        return new LoginUserDto(
+                appUser.id(),
+                appUser.username(),
+                appUser.firstName(),
+                appUser.lastName()
+        );
     }
 
     public void saveNewUser(RegisterUserDto userDto) {
