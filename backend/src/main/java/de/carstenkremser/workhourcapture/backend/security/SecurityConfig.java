@@ -16,7 +16,7 @@ import org.springframework.security.web.csrf.CsrfTokenRequestAttributeHandler;
 @Configuration
 public class SecurityConfig {
 
-    final private String[] PUBLIC_URLS = new String[]{
+    private final String[] publicUrls = new String[]{
             "/api/user/login",
             "/api/user/logout",
             "/api/user/register"
@@ -36,7 +36,7 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf
                         .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
                         .csrfTokenRequestHandler(requestAttributeHandler)
-                       .ignoringRequestMatchers(PUBLIC_URLS)
+                       .ignoringRequestMatchers(publicUrls)
                 )
                 .authorizeHttpRequests(request -> {
                     request.requestMatchers("/api/user/register").permitAll();
