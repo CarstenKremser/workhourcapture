@@ -15,13 +15,13 @@ public class UserController {
 
     private final AppUserDetailsService detailsService;
 
-    @GetMapping("/me")
+/*  @GetMapping("/me")
     public String getCurrentUser() {
         return SecurityContextHolder
                 .getContext()
                 .getAuthentication()
                 .getName();
-    }
+    }*/
 
     @PostMapping("/login")
     public LoginUserDto login() {
