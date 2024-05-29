@@ -42,6 +42,7 @@ public class SecurityConfig {
                     request.requestMatchers("/api/user/register").permitAll();
                     request.requestMatchers("/api/workingtime").authenticated();
                     request.requestMatchers("/api/timerecord").authenticated();
+                    request.requestMatchers("/api/calendar").authenticated();
                     request.anyRequest().permitAll();
                 })
                 .sessionManagement(c -> c.sessionCreationPolicy(SessionCreationPolicy.ALWAYS))

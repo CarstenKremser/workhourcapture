@@ -1,13 +1,13 @@
 package de.carstenkremser.workhourcapture.backend.service;
 
+import de.carstenkremser.workhourcapture.backend.dto.WorkdayCalendarEntryInputDto;
 import de.carstenkremser.workhourcapture.backend.dto.WorkingDayOutputDto;
 import de.carstenkremser.workhourcapture.backend.dto.WorkingDaysOutputDto;
 import de.carstenkremser.workhourcapture.backend.dto.WorkingTimeOutputDto;
-import de.carstenkremser.workhourcapture.backend.model.WorkingDay;
-import de.carstenkremser.workhourcapture.backend.model.WorkingDays;
-import de.carstenkremser.workhourcapture.backend.model.WorkingTime;
+import de.carstenkremser.workhourcapture.backend.model.*;
 import org.springframework.stereotype.Service;
 
+import java.time.DayOfWeek;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -15,7 +15,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Service
-public class WorkingTimeConverter {
+public class AppDateAndTimeConverter {
 
     public String convertDurationToString(Duration duration) {
         if (duration == null) {
@@ -42,6 +42,14 @@ public class WorkingTimeConverter {
         }
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
         return localDate.format(formatter);
+    }
+
+    public LocalDate convertStringToLocalDate(String date) {
+        if (date == null || date.isEmpty()) {
+            return null;
+        }
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+        return LocalDate.parse(date, formatter);
     }
 
     public WorkingDaysOutputDto convertWorkingDaysToDto(WorkingDays workingDays) {
@@ -97,6 +105,29 @@ public class WorkingTimeConverter {
                 workEndDate,
                 workEndTime,
                 convertDurationToString(workingTime.duration())
+        );
+    }
+
+    public WorkdayCalendarEntry convertToWorkdayCalendarEntry(WorkdayCalendarEntryInputDto dto) {
+        if (dto == null) {
+            return null;
+        }
+        Duration scheduledHours = Duration.ZERO;
+        if (dto.scheduledHours() != null && dto.scheduledHours().length() > 3 && dto.scheduledHours().contains(":")) {
+            int minutes = Integer.parseInt(dto.scheduledHours().split(":")[1]);
+            int hours = Integer.parseInt(dto.scheduledHours().split(":")[0]);
+            scheduledHours = Duration.ofHours(hours).plusMinutes(minutes);
+        }
+        return new WorkdayCalendarEntry(
+                "",
+                dto.evaluationPriority(),//int evaluationPriority,
+                dto.userId(),//String userId,
+                WorkdayCalendarEntryType.valueOf(dto.entryType()), //WorkdayCalendarEntryType entryType,
+                scheduledHours, //Duration scheduledHours,
+                convertStringToLocalDate(dto.dateFrom()), //LocalDate dateFrom,
+                convertStringToLocalDate(dto.dateTo()), //LocalDate dateTo,
+                DayOfWeek.valueOf(dto.dayOfWeek()), //DayOfWeek dayOfWeek,
+                dto.annotation() //String annotation
         );
     }
 }
