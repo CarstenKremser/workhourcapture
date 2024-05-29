@@ -29,7 +29,7 @@ public class UserController {
                 .getContext()
                 .getAuthentication()
                 .getName();
-        return detailsService.getUserDtoByUsername(username);
+        return detailsService.getLoginUserDtoByUsername(username);
     }
 
     @PostMapping("/logout")
