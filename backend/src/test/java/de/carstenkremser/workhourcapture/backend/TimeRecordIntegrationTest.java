@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
@@ -16,6 +17,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import java.time.Instant;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -37,6 +39,7 @@ class TimeRecordIntegrationTest {
 
     @Test
     @DirtiesContext
+    @WithMockUser
     void add_whenCalledWithoutTime_insertsDataWithGeneratedTime() throws Exception {
         final String userId = "ThisIsMyId";
         final String recordType = "workstart";
@@ -45,6 +48,7 @@ class TimeRecordIntegrationTest {
         final TimeBookingDto bookingDto = new TimeBookingDto(userId, recordType, null, timeZoneOffsetInMinutes, timeZone);
 
         mockMvc.perform(MockMvcRequestBuilders.post("/api/timerecord/add")
+                        .with(csrf())
                         .content(asJsonString(bookingDto))
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
@@ -69,6 +73,7 @@ class TimeRecordIntegrationTest {
 
     @Test
     @DirtiesContext
+    @WithMockUser
     void add_whenCalledWithTime_insertsDataWithProvidedTime() throws Exception {
         final String userId = "ThisIsMyId";
         final String recordType = "workstart";
@@ -87,7 +92,8 @@ class TimeRecordIntegrationTest {
                                         "\"timezoneName\": \"" + bookingDto.timezoneName() + "\"" +
                                 "}")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .accept(MediaType.APPLICATION_JSON))
+                        .accept(MediaType.APPLICATION_JSON)
+                        .with(csrf()))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.id").exists())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.userId").value(userId))

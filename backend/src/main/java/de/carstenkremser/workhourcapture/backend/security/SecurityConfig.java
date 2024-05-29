@@ -36,7 +36,7 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf
                         .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
                         .csrfTokenRequestHandler(requestAttributeHandler)
-                        .ignoringRequestMatchers(PUBLIC_URLS)
+                       .ignoringRequestMatchers(PUBLIC_URLS)
                 )
                 .authorizeHttpRequests(request -> {
                     request.requestMatchers("/api/user/register").permitAll();
