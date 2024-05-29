@@ -4,10 +4,12 @@
   font-family: Avenir, Helvetica, Arial, sans-serif;
   font-size: larger;
   background-color: gray;
+  --shadow: black;
   --bar-background: #333333;
   --bar-color: lightgray;
   --button-background: #444444;
   --button-background-active: chocolate;
+  --button-border: dimgray;
   --button-border-hover: chocolate;
 }
 
@@ -87,11 +89,11 @@ h1 {
   border-radius: 0.5rem;
   border-style: solid;
   border-width: 2px;
-  border-color: dimgray;
+  border-color: var(--button-border);
 }
 
 .navbar-item a:not(.active):hover {
-  border-color: chocolate;
+  border-color: var(--button-border-hover);
 }
 
 .navbar-item .active {

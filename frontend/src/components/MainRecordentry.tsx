@@ -1,6 +1,8 @@
-import '../styles/style.css'
+import '../styles/style.css';
 import React, {ReactElement, useEffect, useState} from "react";
 import axios from "axios";
+import {User} from "./UserData.ts";
+import {LoginAdviceCard} from "./LoginAdviceCard.tsx";
 
 function DateTimeNow() {
     const nowWithOutTimezone = new Date();
@@ -39,7 +41,11 @@ function RecordTypeToString(recordType: string) {
     }
 }
 
-export function MainRecordentry(): ReactElement {
+export type MainRecordentryProps = {
+    user: User | null;
+}
+
+export function MainRecordentry(props: MainRecordentryProps): ReactElement {
 
     const [sugestedRecordType, setSugestedRecordType] = useState("workstart");
     const [entryMethod, setEntryMethod] = useState("instant");
@@ -69,7 +75,7 @@ export function MainRecordentry(): ReactElement {
         console.log("Entry Method " + entryMethod);
         if (entryMethod === "instant") {
             axios.post("/api/timerecord/add", {
-                "userId": "defaultUser",
+                "userId": props.user?.userid,
                 "recordType": sugestedRecordType,
                 "timezoneOffset": TimezoneOffset(),
                 "timezoneName": TimezoneName(),
@@ -82,7 +88,7 @@ export function MainRecordentry(): ReactElement {
             })
         } else if (entryMethod === "edited") {
             axios.post("/api/timerecord/add", {
-                "userId": "defaultUser",
+                "userId": props.user?.userid,
                 "recordType": recordType,
                 "recordTimestamp": TimeWithoutTimezoneOffset(recordTime),
                 "timezoneOffset": TimezoneOffset(),
@@ -99,8 +105,8 @@ export function MainRecordentry(): ReactElement {
         }
     };
 
-    return (<>
-        <main className="main-recordentry">
+    function recordEntryForm(): ReactElement {
+        return <>
             <form onSubmit={handleSubmit}>
 
                 <fieldset className="recordtime-editfieldset">
@@ -147,6 +153,15 @@ export function MainRecordentry(): ReactElement {
                     </div>
                 </fieldset>
             </form>
+        </>
+    }
+
+    return (<>
+        <main className="main-recordentry">
+            {(props.user !== undefined && props.user !== null)
+                ? recordEntryForm()
+                : <LoginAdviceCard />
+            }
         </main>
     </>);
 }
