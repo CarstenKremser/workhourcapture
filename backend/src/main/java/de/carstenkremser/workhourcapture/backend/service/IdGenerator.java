@@ -6,7 +6,7 @@ import java.util.UUID;
 
 @Service
 public class IdGenerator {
-    String createId() {
+    public String createId() {
         return UUID.randomUUID().toString();
     }
 }

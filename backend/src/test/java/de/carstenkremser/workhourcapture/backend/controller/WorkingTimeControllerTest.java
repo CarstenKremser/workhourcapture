@@ -3,7 +3,7 @@ package de.carstenkremser.workhourcapture.backend.controller;
 import de.carstenkremser.workhourcapture.backend.dto.ReportMonthDto;
 import de.carstenkremser.workhourcapture.backend.dto.WorkingDaysOutputDto;
 import de.carstenkremser.workhourcapture.backend.model.WorkingDays;
-import de.carstenkremser.workhourcapture.backend.service.WorkingTimeConverter;
+import de.carstenkremser.workhourcapture.backend.service.AppDateAndTimeConverter;
 import de.carstenkremser.workhourcapture.backend.service.WorkingTimeService;
 import org.junit.jupiter.api.Test;
 
@@ -19,12 +19,12 @@ class WorkingTimeControllerTest {
 
 
     private final WorkingTimeService mockWorkingTimeService = mock(WorkingTimeService.class);
-    private final WorkingTimeConverter workingTimeConverter = new WorkingTimeConverter();
+    private final AppDateAndTimeConverter appDateAndTimeConverter = new AppDateAndTimeConverter();
 
     @Test
     void getForMonth() {
         WorkingTimeController controller = new WorkingTimeController(
-                mockWorkingTimeService, workingTimeConverter);
+                mockWorkingTimeService, appDateAndTimeConverter);
         WorkingDays workingDays = new WorkingDays (
                 Duration.ZERO,
                 Collections.emptyList()
@@ -33,7 +33,7 @@ class WorkingTimeControllerTest {
                 .getWorkingDaysForMonth("userId", YearMonth.of(2024,5))
         ).thenReturn(workingDays);
 
-        WorkingDaysOutputDto expected = workingTimeConverter.convertWorkingDaysToDto(workingDays);
+        WorkingDaysOutputDto expected = appDateAndTimeConverter.convertWorkingDaysToDto(workingDays);
 
         ReportMonthDto reportMonthBody = new ReportMonthDto (
                 "userId", 2024, 5);
