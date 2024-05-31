@@ -26,7 +26,7 @@ public class WorkingTimeService {
         TimeRecord lastBefore = timeRecordService.getTimeRecordLatestBefore(
                 userId,
                 startTime
-                );
+        );
         TimeRecord firstAfter = timeRecordService.getTimeRecordFirstAfter(
                 userId,
                 endTime.minusNanos(1)
@@ -44,12 +44,10 @@ public class WorkingTimeService {
             if (timeRecord.recordType().equals(TimeRecordType.WORKEND)) {
                 workingTimes.add(new WorkingTime(previous, timeRecord));
                 previous = null;
-            }
-            else if (previous != null) {
+            } else if (previous != null) {
                 workingTimes.add(new WorkingTime(previous, null));
                 previous = timeRecord;
-            }
-            else {
+            } else {
                 previous = timeRecord;
             }
         }
@@ -68,24 +66,22 @@ public class WorkingTimeService {
     }
 
     public WorkingDays getWorkingDaysForMonth(String userId, YearMonth monthAndYear) {
-        LocalDateTime startTime = LocalDate.from(monthAndYear.atDay(1)).atStartOfDay();
-        LocalDateTime endTime = monthAndYear.atEndOfMonth().plusDays(1).atStartOfDay();
-        return getWorkingDaysForInterval(userId, startTime, endTime);
+        LocalDate startDate = LocalDate.from(monthAndYear.atDay(1));
+        LocalDate endDate = monthAndYear.atEndOfMonth();
+        return getWorkingDaysForInterval(userId, startDate, endDate);
     }
 
-    public WorkingDays getWorkingDaysForInterval(String userId, LocalDateTime startTime, LocalDateTime endTime) {
+    public WorkingDays getWorkingDaysForInterval(String userId, LocalDate startDate, LocalDate endDate) {
         HashMap<LocalDate, WorkingDay> workingDays = new HashMap<>();
-        LocalDate startDate = startTime.toLocalDate();
-        LocalDate endDate = endTime.toLocalDate();
         LocalDate currentDate = startDate;
-        while(currentDate.isBefore(endDate)) {
+        while (currentDate.isBefore(endDate.plusDays(1))) {
             if (getAllocatedDurationForDate(userId, currentDate).toSeconds() > 0) {
-                workingDays.put(currentDate,new WorkingDay(currentDate,getAllocatedDurationForDate(userId, currentDate)));
+                workingDays.put(currentDate, new WorkingDay(currentDate, getAllocatedDurationForDate(userId, currentDate)));
             }
             currentDate = currentDate.plusDays(1);
         }
 
-        List<WorkingTime> workingTimes = getWorkingTimeForInterval(userId, startTime, endTime);
+        List<WorkingTime> workingTimes = getWorkingTimeForInterval(userId, startDate.atStartOfDay(), endDate.atTime(LocalTime.MAX));
         for (WorkingTime workingTime : workingTimes) {
             currentDate = workingTime.date();
             if (currentDate != null && !workingDays.containsKey(currentDate)) {
@@ -98,7 +94,7 @@ public class WorkingTimeService {
         Duration allocatedSum = Duration.ZERO;
         List<WorkingDay> workingDayList = new ArrayList<>();
 
-        while(currentDate.isBefore(endDate)) {
+        while (currentDate.isBefore(endDate.plusDays(1))) {
             if (workingDays.containsKey(currentDate)) {
                 WorkingDay workingDay = workingDays.get(currentDate);
                 allocatedSum = allocatedSum.plus(workingDay.getAllocated());
