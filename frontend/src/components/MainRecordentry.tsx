@@ -142,8 +142,8 @@ export function MainRecordentry(props: MainRecordentryProps): ReactElement {
                             <label htmlFor="recordtime-date">Datum/Uhrzeit:</label>
                             <input type="datetime-local" id="recordtime-date" name="recordtime-date"
                                    value={recordTime}
-                                   min="2024-05-01T00:00"
-                                   max="2024-06-01T00:00"
+                                   min="2024-01-01T00:00"
+                                   max="2030-12-31T23:59"
                                    onChange={onChangeRecordTime}/>
                         </div>
                     </div>
