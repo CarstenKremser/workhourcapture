@@ -6,8 +6,8 @@ import org.springframework.stereotype.Service;
 
 import java.time.*;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
@@ -72,6 +72,7 @@ public class WorkingTimeService {
     }
 
     public WorkingDays getWorkingDaysForInterval(String userId, LocalDate startDate, LocalDate endDate) {
+        /*
         HashMap<LocalDate, WorkingDay> workingDays = new HashMap<>();
         LocalDate currentDate = startDate;
         while (currentDate.isBefore(endDate.plusDays(1))) {
@@ -80,6 +81,9 @@ public class WorkingTimeService {
             }
             currentDate = currentDate.plusDays(1);
         }
+           */
+        Map<LocalDate, WorkingDay> workingDays = calendarService.getRegularWorkingDayMap(userId, startDate, endDate);
+        LocalDate currentDate;
 
         List<WorkingTime> workingTimes = getWorkingTimeForInterval(userId, startDate.atStartOfDay(), endDate.atTime(LocalTime.MAX));
         for (WorkingTime workingTime : workingTimes) {
