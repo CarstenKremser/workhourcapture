@@ -28,6 +28,7 @@ class WorkingTimeServiceTest {
     private final TimeGenerator mockTimeGenerator = mock(TimeGenerator.class);
     private final TimeRecordRepository mockTimeRecordRepository = mock(TimeRecordRepository.class);
     private final TimeRecordService mockTimeRecordService = mock(TimeRecordService.class);
+    private final WorkdayCalendarService mockWorkdayCalendarService = mock(WorkdayCalendarService.class);
 
     @Test
     void getWorkingTimeForMonth_havingNoTimeRecords() {
@@ -44,7 +45,7 @@ class WorkingTimeServiceTest {
                 mockTimeRecordRepository, mockIdGenerator, mockTimeGenerator);
 
         WorkingTimeService workingTimeService = new WorkingTimeService(
-                trs);
+                trs, mockWorkdayCalendarService);
         List<WorkingTime> actual = workingTimeService.getWorkingTimeForMonth("defaultUser", YearMonth.of(2023, 12));
 
         assertNotNull(actual);
@@ -88,7 +89,7 @@ class WorkingTimeServiceTest {
                 mockTimeRecordRepository, mockIdGenerator, mockTimeGenerator);
 
         WorkingTimeService workingTimeService = new WorkingTimeService(
-                trs);
+                trs, mockWorkdayCalendarService);
 
         List<WorkingTime> actual = workingTimeService.getWorkingTimeForMonth("defaultUser", YearMonth.of(2023, 12));
 
@@ -160,7 +161,7 @@ class WorkingTimeServiceTest {
                 mockTimeRecordRepository, mockIdGenerator, mockTimeGenerator);
 
         WorkingTimeService workingTimeService = new WorkingTimeService(
-                trs);
+                trs, mockWorkdayCalendarService);
 
         List<WorkingTime> actual = workingTimeService.getWorkingTimeForMonth("defaultUser", YearMonth.of(2023, 12));
 
@@ -226,7 +227,7 @@ class WorkingTimeServiceTest {
                 mockTimeRecordRepository, mockIdGenerator, mockTimeGenerator);
 
         WorkingTimeService workingTimeService = new WorkingTimeService(
-                trs);
+                trs, mockWorkdayCalendarService);
 
         List<WorkingTime> actual = workingTimeService.getWorkingTimeForMonth("defaultUser", YearMonth.of(2023, 12));
 
@@ -248,7 +249,7 @@ class WorkingTimeServiceTest {
                         "defaultUser", "Europe/Berlin", 120);
 
         WorkingTimeService workingTimeService = new WorkingTimeService(
-                null);
+                null, null);
 
         assertTrue(workingTimeService.isWorktimeInterval(startTimeRecord, endTimeRecord));
         assertFalse(workingTimeService.isWorktimeInterval(null, endTimeRecord));
@@ -297,7 +298,7 @@ class WorkingTimeServiceTest {
                 .thenReturn(all);
 
         WorkingTimeService workingTimeService = new WorkingTimeService(
-                mockTimeRecordService);
+                mockTimeRecordService, mockWorkdayCalendarService);
 
         WorkingDays workingDays = workingTimeService.getWorkingDaysForMonth("defaultUser", YearMonth.of(2023, 12));
         assertNotNull(workingDays);
@@ -323,7 +324,7 @@ class WorkingTimeServiceTest {
     @Test
     void getAllocatedDurationForDate() {
         WorkingTimeService workingTimeService = new WorkingTimeService(
-                null);
+                null, null);
         Duration tuesday = workingTimeService
                 .getAllocatedDurationForDate("defaultUser",
                         LocalDate.of(2024,5,7));
@@ -345,7 +346,7 @@ class WorkingTimeServiceTest {
     @Test
     void getAllocatedDurationForDate_returnsDurationZero_whenCalledWithoutDate() {
         WorkingTimeService workingTimeService = new WorkingTimeService(
-                null);
+                null, null);
         Duration noDate = workingTimeService
                 .getAllocatedDurationForDate("defaultUser", null);
 

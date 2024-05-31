@@ -14,6 +14,7 @@ import java.util.List;
 public class WorkingTimeService {
 
     final TimeRecordService timeRecordService;
+    final WorkdayCalendarService calendarService;
 
     public List<WorkingTime> getWorkingTimeForMonth(String userId, YearMonth monthAndYear) {
         LocalDateTime startTime = LocalDate.from(monthAndYear.atDay(1)).atStartOfDay();
