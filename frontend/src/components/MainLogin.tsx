@@ -80,6 +80,7 @@ export function MainLogin(props: LoginCardProps): ReactElement {
                     </li>
                     <li>
                         <input
+                            className="buttonsubmit"
                             id={"login-submit"}
                             type={"submit"}
                             value="login"

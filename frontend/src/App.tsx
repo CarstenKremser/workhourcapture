@@ -8,6 +8,7 @@ import {MainAnalyse} from "./components/MainAnalyse.tsx";
 import {MainLogin} from "./components/MainLogin.tsx";
 import {useEffect, useState} from "react";
 import {MainLogout} from "./components/MainLogout.tsx";
+import {MainDefault} from "./components/MainDefault.tsx";
 
 export default function App() {
 
@@ -22,7 +23,8 @@ export default function App() {
             <HeaderBar />
             <NavBar user={currentUser} />
             <Routes>
-                <Route path="/" element={<MainRecordentry user={currentUser}/>} />
+                <Route path="/" element={<MainDefault user={currentUser}/>} />
+                <Route path="/entry" element={<MainRecordentry user={currentUser}/>} />
                 <Route path="/analyse" element={<MainAnalyse user={currentUser}/>} />
                 <Route path="/login" element={<MainLogin setUser={setCurrentUser} />} />
                 <Route path="/logout" element={<MainLogout setUser={setCurrentUser} />} />

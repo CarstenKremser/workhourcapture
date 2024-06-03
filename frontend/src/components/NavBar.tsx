@@ -40,6 +40,9 @@ export function NavBar(props: NavBarProps): ReactElement {
             </Link>
             <ul className="navbar-items">
                 <li className="navbar-item">
+                    <NavLink to={"/entry"}>Erfassung</NavLink>
+                </li>
+                <li className="navbar-item">
                     <NavLink to={"/analyse"}>Auswertung</NavLink>
                 </li>
                 <li className="navbar-item">

@@ -140,7 +140,7 @@ export function MainRecordentry(props: MainRecordentryProps): ReactElement {
                             <option value="workend">Arbeitsende</option>
                         </select>
                         <div className="recordtime-edittime">
-                            <label htmlFor="recordtime-date">Datum/Uhrzeit:</label>
+                            <label htmlFor="recordtime-date">Datum/Uhrzeit: </label>
                             <input type="datetime-local" id="recordtime-date" name="recordtime-date"
                                    value={recordTime}
                                    min="2024-01-01T00:00"
@@ -150,7 +150,10 @@ export function MainRecordentry(props: MainRecordentryProps): ReactElement {
                     </div>
 
                     <div className="recordtime-buttonsubmit">
-                        <input type="submit" value="buchen"></input>
+                        <input className="buttonsubmit"
+                               id={"recordtime-submit"}
+                               type="submit"
+                               value="buchen"></input>
                     </div>
                 </div>
             </form>
