@@ -1,4 +1,28 @@
 .main-analyse {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    margin: 1rem;
+    margin-top: 0;
+
+}
+
+.analyse-container {
+    margin-top: 5rem;
+    padding: 1rem;
+    padding-left:  3rem;
+
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    border: 1px solid var(--bar-background);
+    border-radius: 0.5rem;
+
+    align-items: flex-start;
+    width: 32rem;
+    box-shadow: 5px 5px 20px var(--shadow);
+
 }
 
 .analyse-select-container {
@@ -8,7 +32,6 @@
     flex-direction: row;
     align-items: center;
     vertical-align: center;
-
 }
 
 .analyse-buttonsubmit>.submit {
@@ -22,7 +45,7 @@
     margin-left: 2rem;
     border-radius: 0.5rem;
     border-style: solid;
-    border-width: 2px;
+    border-width: 3px;
     border-color: dimgray;
 }
 
@@ -32,7 +55,7 @@
 
 .analyse-display-container {
     margin: 0;
-
+    width: 30rem;
 }
 
 .period-summary {
@@ -165,6 +188,7 @@ hr.day-summary-seperator {
 .day-intervals {
     grid-row-start: 2;
     grid-column-end:  span 5;
+    border-top: solid darkgray 1px;
 }
 
 .interval {

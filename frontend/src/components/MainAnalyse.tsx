@@ -60,7 +60,8 @@ export function MainAnalyse(props: MainAnalyseProps): ReactElement {
     function mainAnalyse(): ReactElement {
         return <>
             <main className="main-analyse">
-                <h2>Analyse/Report</h2>
+                <div className={"analyse-container"}>
+                <h2>Monatsauswertung:</h2>
                 <form onSubmit={handleSubmit}>
                     <div className="analyse-select-container">
                         <div className="analyse-select-pickdate">
@@ -92,6 +93,7 @@ export function MainAnalyse(props: MainAnalyseProps): ReactElement {
                             workingDays={workingDays.workingDays}/>
                         : <></>
                     }
+                </div>
                 </div>
             </main>
         </>
