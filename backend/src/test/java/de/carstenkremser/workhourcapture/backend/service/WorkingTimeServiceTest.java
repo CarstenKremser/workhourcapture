@@ -1,9 +1,6 @@
 package de.carstenkremser.workhourcapture.backend.service;
 
-import de.carstenkremser.workhourcapture.backend.model.TimeRecord;
-import de.carstenkremser.workhourcapture.backend.model.TimeRecordType;
-import de.carstenkremser.workhourcapture.backend.model.WorkingDays;
-import de.carstenkremser.workhourcapture.backend.model.WorkingTime;
+import de.carstenkremser.workhourcapture.backend.model.*;
 import de.carstenkremser.workhourcapture.backend.repository.TimeRecordRepository;
 
 import org.junit.jupiter.api.Test;
@@ -14,7 +11,9 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.YearMonth;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
@@ -291,18 +290,56 @@ class WorkingTimeServiceTest {
         all.addLast(timeRecordAfter);
 
         when(mockTimeRecordService.getTimeRecordsForInterval(
-                        anyString(),
+                anyString(),
                 any(LocalDateTime.class),
                 any(LocalDateTime.class)
-                ))
+        ))
                 .thenReturn(all);
 
+        Map<LocalDate, WorkingDay> workingDayMap = new HashMap<>();
+        workingDayMap.put(
+                LocalDate.of(2023, 12, 1),
+                new WorkingDay(LocalDate.of(2023, 12, 1),
+                        Duration.ofHours(8)));
+        workingDayMap.put(
+                LocalDate.of(2023, 12, 8),
+                new WorkingDay(LocalDate.of(2023, 12, 8),
+                        Duration.ofHours(8)));
+        workingDayMap.put(
+                LocalDate.of(2023, 12, 15),
+                new WorkingDay(LocalDate.of(2023, 12, 15),
+                        Duration.ofHours(8)));
+        workingDayMap.put(
+                LocalDate.of(2023, 12, 18),
+                new WorkingDay(LocalDate.of(2023, 12, 18),
+                        Duration.ofHours(8)));
+        workingDayMap.put(
+                LocalDate.of(2023, 12, 20),
+                new WorkingDay(LocalDate.of(2023, 12, 20),
+                        Duration.ofHours(8)));
+        workingDayMap.put(
+                LocalDate.of(2023, 12, 22),
+                new WorkingDay(LocalDate.of(2023, 12, 22),
+                        Duration.ofHours(8)));
+        workingDayMap.put(
+                LocalDate.of(2023, 12, 27),
+                new WorkingDay(LocalDate.of(2023, 12, 27),
+                        Duration.ofHours(8)));
+        workingDayMap.put(
+                LocalDate.of(2023, 12, 29),
+                new WorkingDay(LocalDate.of(2023, 12, 29),
+                        Duration.ofHours(8)));
+        when(mockWorkdayCalendarService.getRegularWorkingDayMap(
+                "defaultUser",
+                LocalDate.of(2023, 12, 1),
+                LocalDate.of(2023, 12, 31)))
+                .thenReturn(workingDayMap);
         WorkingTimeService workingTimeService = new WorkingTimeService(
                 mockTimeRecordService, mockWorkdayCalendarService);
 
         WorkingDays workingDays = workingTimeService.getWorkingDaysForMonth("defaultUser", YearMonth.of(2023, 12));
         assertNotNull(workingDays);
-        assertEquals(14,workingDays.workingDays().size());
+        assertEquals(10, workingDays.workingDays().size());
     }
 
     @Test
@@ -327,16 +364,16 @@ class WorkingTimeServiceTest {
                 null, null);
         Duration tuesday = workingTimeService
                 .getAllocatedDurationForDate("defaultUser",
-                        LocalDate.of(2024,5,7));
+                        LocalDate.of(2024, 5, 7));
         Duration wednesday = workingTimeService
                 .getAllocatedDurationForDate("defaultUser",
-                        LocalDate.of(2024,5,8));
+                        LocalDate.of(2024, 5, 8));
         Duration thursday = workingTimeService
                 .getAllocatedDurationForDate("defaultUser",
-                        LocalDate.of(2024,5,9));
+                        LocalDate.of(2024, 5, 9));
         Duration friday = workingTimeService
                 .getAllocatedDurationForDate("defaultUser",
-                        LocalDate.of(2024,5,10));
+                        LocalDate.of(2024, 5, 10));
         assertEquals(Duration.ofHours(8), tuesday);
         assertEquals(Duration.ZERO, wednesday);
         assertEquals(Duration.ofHours(8), thursday);

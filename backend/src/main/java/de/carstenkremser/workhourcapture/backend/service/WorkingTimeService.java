@@ -72,16 +72,6 @@ public class WorkingTimeService {
     }
 
     public WorkingDays getWorkingDaysForInterval(String userId, LocalDate startDate, LocalDate endDate) {
-        /*
-        HashMap<LocalDate, WorkingDay> workingDays = new HashMap<>();
-        LocalDate currentDate = startDate;
-        while (currentDate.isBefore(endDate.plusDays(1))) {
-            if (getAllocatedDurationForDate(userId, currentDate).toSeconds() > 0) {
-                workingDays.put(currentDate, new WorkingDay(currentDate, getAllocatedDurationForDate(userId, currentDate)));
-            }
-            currentDate = currentDate.plusDays(1);
-        }
-           */
         Map<LocalDate, WorkingDay> workingDays = calendarService.getRegularWorkingDayMap(userId, startDate, endDate);
         LocalDate currentDate;
 
