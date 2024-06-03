@@ -118,6 +118,10 @@ public class AppDateAndTimeConverter {
             int hours = Integer.parseInt(dto.scheduledHours().split(":")[0]);
             scheduledHours = Duration.ofHours(hours).plusMinutes(minutes);
         }
+        DayOfWeek dayOfWeek = null;
+        if (dto.dayOfWeek() != null && !dto.dayOfWeek().isEmpty()) {
+            dayOfWeek = DayOfWeek.valueOf(dto.dayOfWeek());
+        }
         return new WorkdayCalendarEntry(
                 "",
                 dto.evaluationPriority(),//int evaluationPriority,
@@ -126,7 +130,7 @@ public class AppDateAndTimeConverter {
                 scheduledHours, //Duration scheduledHours,
                 convertStringToLocalDate(dto.dateFrom()), //LocalDate dateFrom,
                 convertStringToLocalDate(dto.dateTo()), //LocalDate dateTo,
-                DayOfWeek.valueOf(dto.dayOfWeek()), //DayOfWeek dayOfWeek,
+                dayOfWeek, //DayOfWeek dayOfWeek,
                 dto.annotation() //String annotation
         );
     }

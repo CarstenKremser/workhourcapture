@@ -1,12 +1,14 @@
 package de.carstenkremser.workhourcapture.backend.model;
 
 import lombok.Getter;
+import lombok.ToString;
 
 import java.time.Duration;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+@ToString
 public class WorkingDay {
     @Getter
     private final LocalDate date;
