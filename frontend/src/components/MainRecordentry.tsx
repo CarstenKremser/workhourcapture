@@ -3,6 +3,7 @@ import React, {ReactElement, useEffect, useState} from "react";
 import axios from "axios";
 import {User} from "./UserData.ts";
 import {LoginAdviceCard} from "./LoginAdviceCard.tsx";
+import '../styles/styles_recordentry.css';
 
 function DateTimeNow() {
     const nowWithOutTimezone = new Date();
@@ -109,8 +110,8 @@ export function MainRecordentry(props: MainRecordentryProps): ReactElement {
         return <>
             <form onSubmit={handleSubmit}>
 
-                <fieldset className="recordtime-editfieldset">
-                    <legend>Zeit buchen:</legend>
+                <div className="recordtime-editfieldset">
+                    <h2>Zeit buchen:</h2>
 
                     <div className="recordtime-radiocontainer">
                         <input className="recordtime-radio"
@@ -151,7 +152,7 @@ export function MainRecordentry(props: MainRecordentryProps): ReactElement {
                     <div className="recordtime-buttonsubmit">
                         <input type="submit" value="buchen"></input>
                     </div>
-                </fieldset>
+                </div>
             </form>
         </>
     }

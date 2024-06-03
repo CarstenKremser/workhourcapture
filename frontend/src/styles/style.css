@@ -100,24 +100,9 @@ h1 {
   background-color: var(--button-background-active);
 }
 
-
-.main-recordentry {
-  margin: 1rem;
-}
-
 .main-analyse {
   margin: 1rem;
 }
-
-.recordtime-editfieldset {
-  display: flex;
-  flex-direction: column;
-}
-
-.recordtime-radiocontainer {
-  margin: 1rem 0;
-}
-
 
 .workingday-card {
   margin: 0.5rem;
