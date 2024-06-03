@@ -1,7 +1,7 @@
 import '../styles/style.css';
 import {User} from "./UserData.ts";
 import {LoginAdviceCard} from "./LoginAdviceCard.tsx";
-import React, {ReactElement, useEffect, useState} from "react";
+import {ReactElement, useEffect} from "react";
 import {useNavigate} from "react-router-dom";
 
 type MainDefaultProps = {
@@ -14,7 +14,6 @@ export function MainDefault(props: MainDefaultProps): ReactElement {
 
     useEffect(() => {
             if (props.user !== undefined && props.user !== null) {
-                console.log("doForward!");
                 navigate("/entry");
             }
         },

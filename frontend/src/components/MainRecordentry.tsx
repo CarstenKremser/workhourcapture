@@ -108,65 +108,66 @@ export function MainRecordentry(props: MainRecordentryProps): ReactElement {
 
     function recordEntryForm(): ReactElement {
         return <>
-            <form onSubmit={handleSubmit}>
+            <main className="main-recordentry">
 
-                <div className="recordtime-editfieldset">
-                    <h2>Zeit buchen:</h2>
+                <form onSubmit={handleSubmit}>
 
-                    <div className="recordtime-radiocontainer">
-                        <input className="recordtime-radio"
-                               type="radio"
-                               id="recordtime-instant"
-                               name="recordtime-instant"
-                               value="instant"
-                               checked={entryMethod === "instant"}
-                               onChange={onChangeEntryMethod}/>
-                        <label htmlFor="recordtime-instant"
-                               id="recordtime-instant-label">{RecordTypeToString(sugestedRecordType)} jetzt</label>
-                    </div>
+                    <div className="recordtime-editfieldset">
+                        <h2>Zeit buchen:</h2>
 
-                    <div className="recordtime-radiocontainer">
-                        <input className="recordtime-radio"
-                               type="radio"
-                               id="recordtime-edited"
-                               name="recordtime-edited"
-                               value="edited"
-                               checked={entryMethod === "edited"}
-                               onChange={onChangeEntryMethod}/>
-                        <label htmlFor="recordtime-edited">manuell:</label>
-                        <select name="recordtime-bookingtype" id="recordtime-select"
-                                onChange={onChangeRecordType}>
-                            <option value="workstart">Arbeitsbeginn</option>
-                            <option value="workend">Arbeitsende</option>
-                        </select>
-                        <div className="recordtime-edittime">
-                            <label htmlFor="recordtime-date">Datum/Uhrzeit: </label>
-                            <input type="datetime-local" id="recordtime-date" name="recordtime-date"
-                                   value={recordTime}
-                                   min="2024-01-01T00:00"
-                                   max="2030-12-31T23:59"
-                                   onChange={onChangeRecordTime}/>
+                        <div className="recordtime-radiocontainer">
+                            <input className="recordtime-radio"
+                                   type="radio"
+                                   id="recordtime-instant"
+                                   name="recordtime-instant"
+                                   value="instant"
+                                   checked={entryMethod === "instant"}
+                                   onChange={onChangeEntryMethod}/>
+                            <label htmlFor="recordtime-instant"
+                                   id="recordtime-instant-label">{RecordTypeToString(sugestedRecordType)} jetzt</label>
+                        </div>
+
+                        <div className="recordtime-radiocontainer">
+                            <input className="recordtime-radio"
+                                   type="radio"
+                                   id="recordtime-edited"
+                                   name="recordtime-edited"
+                                   value="edited"
+                                   checked={entryMethod === "edited"}
+                                   onChange={onChangeEntryMethod}/>
+                            <label htmlFor="recordtime-edited">manuell:</label>
+                            <select name="recordtime-bookingtype" id="recordtime-select"
+                                    onChange={onChangeRecordType}>
+                                <option value="workstart">Arbeitsbeginn</option>
+                                <option value="workend">Arbeitsende</option>
+                            </select>
+                            <div className="recordtime-edittime">
+                                <label htmlFor="recordtime-date">Datum/Uhrzeit: </label>
+                                <input type="datetime-local" id="recordtime-date" name="recordtime-date"
+                                       value={recordTime}
+                                       min="2024-01-01T00:00"
+                                       max="2030-12-31T23:59"
+                                       onChange={onChangeRecordTime}/>
+                            </div>
+                        </div>
+
+                        <div className="recordtime-buttonsubmit">
+                            <input className="buttonsubmit"
+                                   id={"recordtime-submit"}
+                                   type="submit"
+                                   value="buchen"></input>
                         </div>
                     </div>
-
-                    <div className="recordtime-buttonsubmit">
-                        <input className="buttonsubmit"
-                               id={"recordtime-submit"}
-                               type="submit"
-                               value="buchen"></input>
-                    </div>
-                </div>
-            </form>
+                </form>
+            </main>
         </>
     }
 
     return (<>
-        <main className="main-recordentry">
-            {(props.user !== undefined && props.user !== null)
-                ? recordEntryForm()
-                : <LoginAdviceCard />
-            }
-        </main>
+        {(props.user !== undefined && props.user !== null)
+            ? recordEntryForm()
+            : <LoginAdviceCard/>
+        }
     </>);
 }
 

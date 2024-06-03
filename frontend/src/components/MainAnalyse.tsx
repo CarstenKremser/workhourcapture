@@ -1,6 +1,6 @@
 import '../styles/style.css';
 import '../styles/styles_analyse.css';
-import React, {ReactElement, useEffect, useState} from "react";
+import {ReactElement, useEffect, useState} from "react";
 import axios, {AxiosResponse} from "axios";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
