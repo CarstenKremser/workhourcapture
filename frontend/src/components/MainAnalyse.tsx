@@ -1,6 +1,6 @@
 import '../styles/style.css';
 import '../styles/styles_analyse.css';
-import React, {ReactElement, useEffect, useState} from "react";
+import {ReactElement, useEffect, useState} from "react";
 import axios, {AxiosResponse} from "axios";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -60,7 +60,8 @@ export function MainAnalyse(props: MainAnalyseProps): ReactElement {
     function mainAnalyse(): ReactElement {
         return <>
             <main className="main-analyse">
-                <h2>Analyse/Report</h2>
+                <div className={"analyse-container"}>
+                <h2>Monatsauswertung:</h2>
                 <form onSubmit={handleSubmit}>
                     <div className="analyse-select-container">
                         <div className="analyse-select-pickdate">
@@ -92,6 +93,7 @@ export function MainAnalyse(props: MainAnalyseProps): ReactElement {
                             workingDays={workingDays.workingDays}/>
                         : <></>
                     }
+                </div>
                 </div>
             </main>
         </>
